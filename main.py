@@ -10,11 +10,15 @@ window.configure(background="black")
 def basketball():
     print("You clicked the button!")
 
+# Load the image
+#basketball_image = PhotoImage(file=r"C:\Users\23399\OneDrive - Mt Roskill Grammar School\Pictures\basketball_logo_orange_ball.jpg")
 #style
-
+#image=basketball_image
 #buttons
-button = Button(window, text= "🏀", command=basketball, font=("Roboto", 38))
-button.pack(pady=50)
+button = Button(window, text= "🏀", command=basketball, font=("Roboto", 38), width=3, height=1, compound="left")
+button.pack(anchor="w", padx=20, pady=150)
+button = Button(window, text= "⚽", command=basketball, font=("Roboto", 38), width=3, height=1, compound="left")
+button.pack(anchor="w", pady=90, padx=150)
 
 #run
 window.mainloop()
@@ -22,5 +26,3 @@ window.mainloop()
 #Basketball Page
 #Football Page
 #Cricket Page
-#images
-photo = PhotoImage()
