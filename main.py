@@ -19,8 +19,8 @@ class App():
         self.main_frame = Frame(window, background="black", width= frame_width, height= frame_height)
 
         # Frame pack
-        self.top_frame.pack()
-        self.main_frame.pack()
+        self.top_frame.pack(side=TOP, fill=BOTH)
+        self.main_frame.pack(side=TOP, fill=BOTH)
 
         # Button functions
         # Basketball Page
@@ -37,7 +37,7 @@ class App():
 
         # Image
         dirname = path.dirname(__file__)
-        filename = path.join(dirname, r'Images\sportsxlogo.jpg')
+        filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
 
         # Load image
         self.image = Image.open(filename)
