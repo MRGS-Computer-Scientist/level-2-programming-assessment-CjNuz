@@ -2,20 +2,21 @@ from tkinter import *
 from app_settings import *
 from os import * 
 from PIL import Image, ImageTk 
+from basketball import Basketball
 
 class App():
     def __init__(self):
         # Main Page
-        window = Tk()
-        window.geometry("430x932")
-        window.title("SportsX")
-        window.configure(background="black")
-        window.resizable(width=False, height=False)
+        self.window = Tk()
+        self.window.geometry("430x932")
+        self.window.title("SportsX")
+        self.window.configure(background="black")
+        self.window.resizable(width=False, height=False)
 
         # Frame
-        self.top_frame = Frame(window, background="black", width= frame_width, height= topF_height)
+        self.top_frame = Frame(self.window, background="black", width= frame_width, height= topF_height)
         self.top_frame.pack_propagate(False)
-        self.main_frame = Frame(window, background="black", width= frame_width, height= frame_height)
+        self.main_frame = Frame(self.window, background="black", width= frame_width, height= frame_height)
 
         # Frame pack
         self.top_frame.pack(side=TOP, fill=BOTH)
@@ -23,8 +24,9 @@ class App():
 
         # Button functions
         # Basketball Page
-        def basketball():
-            print("You clicked the button!")
+        def open_basketball():
+            Basketball(self.window)
+            self.window.destroy()
 
         # Football Page
         def football():
@@ -51,7 +53,7 @@ class App():
 
         #Button Image
          #Buttons
-        basketball_button = Button(self.main_frame, text="🏀", command=basketball, font=("Roboto", 38), width=button_width, height=button_height, compound="left")
+        basketball_button = Button(self.main_frame, text="🏀", command=open_basketball, font=("Roboto", 38), width=button_width, height=button_height, compound="left")
         football_button = Button(self.main_frame, text="⚽", command=football, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
         cricket_button = Button(self.main_frame, text="🏏", command=cricket, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
 
@@ -61,4 +63,7 @@ class App():
         cricket_button.grid(row=0, column=2, padx=20, pady=buttonY)
 
         # Run
-        window.mainloop()
+        self.window.mainloop()
+
+if __name__ == "__main__":
+    app = App()
