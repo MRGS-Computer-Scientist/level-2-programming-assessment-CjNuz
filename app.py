@@ -4,6 +4,7 @@ from os import *
 from PIL import Image, ImageTk 
 from basketball import Basketball
 
+
 class App():
     def __init__(self):
         # Main Page
@@ -25,9 +26,8 @@ class App():
         # Button functions
         # Basketball Page
         def open_basketball():
-            Basketball(self.window)
-            self.window.destroy()
-
+          self.window.withdraw()
+          basketball_window = Basketball(self.window)
         # Football Page
         def football():
             print("Football")
@@ -38,7 +38,7 @@ class App():
 
         # Image
         dirname = path.dirname(__file__)
-        filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
+        filename = path.join(dirname, r'C:\Users\23399\Downloads\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
 
         # Load image
         self.image = Image.open(filename)
@@ -67,3 +67,5 @@ class App():
 
 if __name__ == "__main__":
     app = App()
+      git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
