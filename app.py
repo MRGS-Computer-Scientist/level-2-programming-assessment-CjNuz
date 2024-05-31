@@ -67,5 +67,3 @@ class App():
 
 if __name__ == "__main__":
     app = App()
-      git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
