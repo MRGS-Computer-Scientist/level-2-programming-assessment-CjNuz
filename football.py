@@ -2,14 +2,14 @@ from tkinter import *
 from app_settings import *
 from os import * 
 from PIL import Image, ImageTk 
-from app import App
 
-class Basketball(Tk):
+
+class Football(Tk):
     def __init__(self, master ):
     # Main Page
         self.window = Toplevel(master)
         self.window.geometry("430x932")
-        self.window.title("Basketball")
+        self.window.title("Football")
         self.window.configure(background="black")
         self.window.resizable(width=False, height=False)
 
@@ -36,13 +36,5 @@ class Basketball(Tk):
         # Background image label
         self.backgroundlogo = Label(self.top_frame, image=self.Logo)
         self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
-
-        def go_home():
-            self.window.withdraw()  # Close the current window
-            App(self.window)  # Open the main window
-
-        #home
-        home_button = Button(self.window, text="Home", command=go_home)
-        home_button.pack()
 
         self.window.mainloop()

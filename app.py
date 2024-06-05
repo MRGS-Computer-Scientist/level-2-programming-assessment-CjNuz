@@ -3,6 +3,8 @@ from app_settings import *
 from os import * 
 from PIL import Image, ImageTk 
 from basketball import Basketball
+from cricket import Cricket
+from football import Football
 
 class App():
     def __init__(self):
@@ -25,16 +27,22 @@ class App():
         # Button functions
         # Basketball Page
         def open_basketball():
-            Basketball(self.window)
-            self.window.destroy()
+            self.window.withdraw()  # Close the current window
+            Basketball(self.window) # Open the baskeball window
+            
 
         # Football Page
-        def football():
-            print("Football")
+        def open_football():
+            self.window.withdraw()  # Close the current window
+            Football(self.window) # Open the football window
+            
 
         # Cricket Page
-        def cricket():
-            print("cricket")
+        def open_cricket():
+            self.window.withdraw()  # Close the current window
+            Cricket(self.window)  # Open the cricket window
+
+
 
         # Image
         dirname = path.dirname(__file__)
@@ -52,10 +60,10 @@ class App():
         self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
 
         #Button Image
-         #Buttons
+        #Buttons
         basketball_button = Button(self.main_frame, text="🏀", command=open_basketball, font=("Roboto", 38), width=button_width, height=button_height, compound="left")
-        football_button = Button(self.main_frame, text="⚽", command=football, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
-        cricket_button = Button(self.main_frame, text="🏏", command=cricket, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
+        football_button = Button(self.main_frame, text="⚽", command=open_football, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
+        cricket_button = Button(self.main_frame, text="🏏", command=open_cricket, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
 
         # Button packs
         basketball_button.grid(row=0, column=0, padx=18, pady=buttonY)
