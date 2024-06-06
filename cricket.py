@@ -12,7 +12,6 @@ class Cricket(Tk):
         self.window.title("Cricket")
         self.window.configure(background="black")
         self.window.resizable(width=False, height=False)
-
         # Frame
         self.top_frame = Frame(self.window, background="black", width= frame_width, height= topF_height)
         self.top_frame.pack_propagate(False)
@@ -21,6 +20,30 @@ class Cricket(Tk):
         # Frame pack
         self.top_frame.pack(side=TOP, fill=BOTH)
         self.main_frame.pack(side=TOP, fill=BOTH)
+
+        # Button functions
+        # Basketball Page
+        def open_basketball():
+            from basketball import Basketball
+            self.window.withdraw()  # Close the current window
+            Basketball(self.window)  # Open the basketball window
+            
+
+        # Football Page
+        def open_football():
+            from football import Football
+            self.window.withdraw()  # Close the current window
+            Football(self.window)  # Open the football window
+
+            
+
+        # Cricket Page
+        def open_cricket():
+            from cricket import Cricket
+            self.window.withdraw()  # Close the current window
+            Cricket(self.window)  # Open the cricket window
+
+
 
         # Image
         dirname = path.dirname(__file__)
@@ -36,5 +59,17 @@ class Cricket(Tk):
         # Background image label
         self.backgroundlogo = Label(self.top_frame, image=self.Logo)
         self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
+
+        #Button Image
+        #Buttons
+        basketball_button = Button(self.main_frame, text="🏀", command=open_basketball, font=("Roboto", 38), width=button_width, height=button_height, compound="left")
+        football_button = Button(self.main_frame, text="⚽", command=open_football, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
+        cricket_button = Button(self.main_frame, text="🏏", command=open_cricket, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
+
+        # Button packs
+        basketball_button.grid(row=0, column=0, padx=18, pady=buttonY)
+        football_button.grid(row=0, column=1, padx=30, pady=buttonY)
+        cricket_button.grid(row=0, column=2, padx=20, pady=buttonY)
+
 
         self.window.mainloop()

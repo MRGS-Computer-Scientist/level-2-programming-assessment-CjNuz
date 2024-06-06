@@ -1,11 +1,7 @@
 from tkinter import *
 from app_settings import *
-from os import * 
-from PIL import Image, ImageTk 
-from basketball import Basketball
-
-from cricket import Cricket
-from football import Football
+from os import path
+from PIL import Image, ImageTk
 
 class App():
     def __init__(self):
@@ -17,9 +13,9 @@ class App():
         self.window.resizable(width=False, height=False)
 
         # Frame
-        self.top_frame = Frame(self.window, background="black", width= frame_width, height= topF_height)
+        self.top_frame = Frame(self.window, background="black", width=frame_width, height=topF_height)
         self.top_frame.pack_propagate(False)
-        self.main_frame = Frame(self.window, background="black", width= frame_width, height= frame_height)
+        self.main_frame = Frame(self.window, background="black", width=frame_width, height=frame_height)
 
         # Frame pack
         self.top_frame.pack(side=TOP, fill=BOTH)
@@ -28,41 +24,46 @@ class App():
         # Button functions
         # Basketball Page
         def open_basketball():
+            from basketball import Basketball
             self.window.withdraw()  # Close the current window
-            Basketball(self.window) # Open the baskeball window
-            
+            Basketball(self.window)  # Open the basketball window
 
         # Football Page
         def open_football():
+            from football import Football
             self.window.withdraw()  # Close the current window
-            Football(self.window) # Open the football window
-            
+            Football(self.window)  # Open the football window
 
         # Cricket Page
         def open_cricket():
+            from cricket import Cricket
             self.window.withdraw()  # Close the current window
             Cricket(self.window)  # Open the cricket window
 
-
-
-        # Image
+        # Load images
         dirname = path.dirname(__file__)
-        filename = path.join(dirname, r'C:\Users\23399\Downloads\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
+        logo_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
+        basketball_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Basketball.psd')
 
-        # Load image
-        self.image = Image.open(filename)
-        # Resize image to fit the top frame
+        # Load and resize logo image
+        self.image = Image.open(logo_filename)
         self.image = self.image.resize((frameImg_width, frameImg_height), Image.LANCZOS)
         self.Logo = ImageTk.PhotoImage(self.image)
 
+        # Load and resize basketball button image
+        self.basketball_image = Image.open(basketball_filename)
+        self.basketball_image = self.basketball_image.resize((button_width * 45, button_height * 140), Image.LANCZOS)  # Adjust size as needed
+        self.basketball_photo = ImageTk.PhotoImage(self.basketball_image)
 
         # Background image label
         self.backgroundlogo = Label(self.top_frame, image=self.Logo)
         self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
 
-        #Button Image
-        #Buttons
-        basketball_button = Button(self.main_frame, text="🏀", command=open_basketball, font=("Roboto", 38), width=button_width, height=button_height, compound="left")
+        # Buttons
+        basketball_button = Button(self.main_frame, image=self.basketball_photo, command=open_basketball, bd=0, highlightthickness=0)
+        basketball_button.image = self.basketball_photo  # Keep a reference to prevent garbage collection
+        basketball_button.config(width=button_width * 40, height=button_height * 120)
+        
         football_button = Button(self.main_frame, text="⚽", command=open_football, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
         cricket_button = Button(self.main_frame, text="🏏", command=open_cricket, font=("Roboto", 38), width=button_width, height=button_height, compound="right")
 
