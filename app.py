@@ -3,6 +3,7 @@ from app_settings import *
 from os import * 
 from PIL import Image, ImageTk 
 from basketball import Basketball
+
 from cricket import Cricket
 from football import Football
 
@@ -46,7 +47,7 @@ class App():
 
         # Image
         dirname = path.dirname(__file__)
-        filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
+        filename = path.join(dirname, r'C:\Users\23399\Downloads\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
 
         # Load image
         self.image = Image.open(filename)
