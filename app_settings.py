@@ -9,6 +9,6 @@ frameImg_height = 300
 topF_height = 100
 #button size
 buttonY = 20
-button_width = 3
+button_width = 2
 button_height = 1
 
