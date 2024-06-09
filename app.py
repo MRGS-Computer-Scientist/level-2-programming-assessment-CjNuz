@@ -40,6 +40,12 @@ class App():
             self.window.withdraw()  # Close the current window
             Cricket(self.window)  # Open the cricket window
 
+        # Logo Button Click
+        def logo_click():
+            self.window.destroy()  # Close the current window
+            new_app = App()  # Open the main app window
+            new_app.run()
+
         # Load images
         dirname = path.dirname(__file__)
         logo_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
@@ -67,15 +73,14 @@ class App():
         self.cricket_image = self.cricket_image.resize((button_width * 50, button_height * 110), Image.LANCZOS)  # Adjust size as needed
         self.cricket_photo = ImageTk.PhotoImage(self.cricket_image)
 
-
-        # Background image label
-        self.backgroundlogo = Label(self.top_frame, image=self.Logo)
-        self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
-
         # Buttons
         basketball_button = Button(self.main_frame, image=self.basketball_photo, command=open_basketball, bd=0, highlightthickness=0)
         basketball_button.image = self.basketball_photo  # Keep a reference to prevent garbage collection
         basketball_button.config(width=button_width * 50, height=button_height * 110)
+
+        self.logo_button = Button(self.top_frame, image=self.Logo, command=logo_click, bd=0, highlightthickness=0)
+        self.logo_button.image = self.Logo  # Keep a reference to prevent garbage collection
+        self.logo_button.place(x=0, y=0, relwidth=1, relheight=1)
         
         football_button = Button(self.main_frame, image=self.football_photo, command=open_football, bd=0, highlightthickness=0)
         football_button.image = self.football_photo  # Keep a reference to prevent garbage collection
@@ -90,8 +95,9 @@ class App():
         football_button.grid(row=0, column=1, padx=30, pady=buttonY)
         cricket_button.grid(row=0, column=2, padx=20, pady=buttonY)
 
-        # Run
+    def run(self):
         self.window.mainloop()
 
 if __name__ == "__main__":
     app = App()
+    app.run()

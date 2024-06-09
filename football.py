@@ -2,7 +2,7 @@ from tkinter import *
 from app_settings import *
 from os import * 
 from PIL import Image, ImageTk 
-
+from app import App
 
 class Football(Tk):
     def __init__(self, master ):
@@ -44,6 +44,10 @@ class Football(Tk):
             self.window.withdraw()  # Close the current window
             Cricket(self.window)  # Open the cricket window
 
+        # Logo Button Click
+        def logo_click():
+            self.window.destroy()  # Close the current window
+            App()  # Open the main app window
 
 
         # Load images
@@ -79,6 +83,10 @@ class Football(Tk):
         self.backgroundlogo.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Buttons
+        self.logo_button = Button(self.top_frame, image=self.Logo, command=logo_click, bd=0, highlightthickness=0)
+        self.logo_button.image = self.Logo  # Keep a reference to prevent garbage collection
+        self.logo_button.place(x=0, y=0, relwidth=1, relheight=1)
+
         basketball_button = Button(self.main_frame, image=self.basketball_photo, command=open_basketball, bd=0, highlightthickness=0)
         basketball_button.image = self.basketball_photo  # Keep a reference to prevent garbage collection
         basketball_button.config(width=button_width * 50, height=button_height * 110)
