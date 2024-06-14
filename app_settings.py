@@ -1,14 +1,7 @@
-#frame size
+# Define constants and configurations
 frame_width = 430
 frame_height = 782
-
-#Image Frame size
-frameImg_width = 900
-frameImg_height = 300
-
 topF_height = 100
-#button size
-buttonY = 20
-button_width = 2
-button_height = 1
-
+button_width = 30
+button_height = 10
+button_image_size = (100, 100)

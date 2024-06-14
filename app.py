@@ -1,103 +1,106 @@
 from tkinter import *
-from app_settings import *
 from os import path
 from PIL import Image, ImageTk
+from app_settings import *
 
+# Define the main application class
 class App():
     def __init__(self):
-        # Main Page
+        # Initialize the main Tkinter window
         self.window = Tk()
-        self.window.geometry("430x932")
-        self.window.title("SportsX")
-        self.window.configure(background="black")
-        self.window.resizable(width=False, height=False)
+        self.window.geometry("430x932")  # Set window size
+        self.window.title("SportsX")  # Set window title
+        self.window.configure(background="black")  # Set window background color
+        self.window.resizable(width=False, height=False)  # Disable window resizing
 
-        # Frame
+        # Create frames for layout
         self.top_frame = Frame(self.window, background="black", width=frame_width, height=topF_height)
-        self.top_frame.pack_propagate(False)
+        self.top_frame.pack_propagate(False)  # Prevent frame from resizing to fit content
         self.main_frame = Frame(self.window, background="black", width=frame_width, height=frame_height)
 
-        # Frame pack
+        # Pack frames into the main window
         self.top_frame.pack(side=TOP, fill=BOTH)
         self.main_frame.pack(side=TOP, fill=BOTH)
 
-        # Button functions
-        # Basketball Page
-        def open_basketball():
-            from basketball import Basketball
-            self.window.withdraw()  # Close the current window
-            Basketball(self.window)  # Open the basketball window
-
-        # Football Page
-        def open_football():
-            from football import Football
-            self.window.withdraw()  # Close the current window
-            Football(self.window)  # Open the football window
-
-        # Cricket Page
-        def open_cricket():
-            from cricket import Cricket
-            self.window.withdraw()  # Close the current window
-            Cricket(self.window)  # Open the cricket window
-
-        # Logo Button Click
-        def logo_click():
-            self.window.destroy()  # Close the current window
-            new_app = App()  # Open the main app window
-            new_app.run()
+        # File paths for images
+        dirname = path.dirname(__file__)
+        self.logo_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\sportsxlogo.jpg')
+        self.basketball_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Basketball_grey.png')
+        self.football_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Football_grey.png')
+        self.cricket_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Cricket_grey.png')
 
         # Load images
-        dirname = path.dirname(__file__)
-        logo_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\LogoSportsX.png')
-        basketball_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Basketball_grey.png')
-        football_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Football_grey.png')
-        cricket_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Cricket_grey.png')
+        self.load_images()
+        # Create buttons using the loaded images
+        self.create_buttons()
 
-        # Load and resize logo image
-        self.image = Image.open(logo_filename)
-        self.image = self.image.resize((frameImg_width, frameImg_height), Image.LANCZOS)
-        self.Logo = ImageTk.PhotoImage(self.image)
-
-        # Load and resize basketball button image
-        self.basketball_image = Image.open(basketball_filename)
-        self.basketball_image = self.basketball_image.resize((button_width * 50, button_height * 110), Image.LANCZOS)  # Adjust size as needed
-        self.basketball_photo = ImageTk.PhotoImage(self.basketball_image)
-
-        # Load and resize football button image
-        self.football_image = Image.open(football_filename)
-        self.football_image = self.football_image.resize((button_width * 50, button_height * 110), Image.LANCZOS)  # Adjust size as needed
-        self.football_photo = ImageTk.PhotoImage(self.football_image)
-
-        # Load and resize cricket button image
-        self.cricket_image = Image.open(cricket_filename)
-        self.cricket_image = self.cricket_image.resize((button_width * 50, button_height * 110), Image.LANCZOS)  # Adjust size as needed
-        self.cricket_photo = ImageTk.PhotoImage(self.cricket_image)
-
-        # Buttons
-        basketball_button = Button(self.main_frame, image=self.basketball_photo, command=open_basketball, bd=0, highlightthickness=0)
-        basketball_button.image = self.basketball_photo  # Keep a reference to prevent garbage collection
-        basketball_button.config(width=button_width * 50, height=button_height * 110)
-
-        self.logo_button = Button(self.top_frame, image=self.Logo, command=logo_click, bd=0, highlightthickness=0)
-        self.logo_button.image = self.Logo  # Keep a reference to prevent garbage collection
-        self.logo_button.place(x=0, y=0, relwidth=1, relheight=1)
-        
-        football_button = Button(self.main_frame, image=self.football_photo, command=open_football, bd=0, highlightthickness=0)
-        football_button.image = self.football_photo  # Keep a reference to prevent garbage collection
-        football_button.config(width=button_width * 50, height=button_height * 110)
-
-        cricket_button = Button(self.main_frame, image=self.cricket_photo, command=open_cricket, bd=0, highlightthickness=0)
-        cricket_button.image = self.cricket_photo  # Keep a reference to prevent garbage collection
-        cricket_button.config(width=button_width * 50, height=button_height * 110)
-
-        # Button packs
-        basketball_button.grid(row=0, column=0, padx=18, pady=buttonY)
-        football_button.grid(row=0, column=1, padx=30, pady=buttonY)
-        cricket_button.grid(row=0, column=2, padx=20, pady=buttonY)
-
-    def run(self):
+        # Start the Tkinter main loop
         self.window.mainloop()
 
+    def load_images(self):
+        # Function to load and resize images using PIL
+        self.logo_image = self.resize_image(self.logo_filename, (300, 100))
+        self.basketball_image = self.resize_image(self.basketball_filename)
+        self.football_image = self.resize_image(self.football_filename)
+        self.cricket_image = self.resize_image(self.cricket_filename)
+
+    def resize_image(self, filepath, size=(100, 100)):
+        # Function to resize an image
+        img = Image.open(filepath)
+        img = img.resize(size, Image.LANCZOS)  # Resize using Lanczos filter
+        return ImageTk.PhotoImage(img)  # Convert to Tkinter PhotoImage
+
+    def create_buttons(self):
+        # Function to create buttons in the main frame
+
+        # Create a button for the logo in the top frame
+        home_button = Button(self.top_frame, image=self.logo_image, command=self.return_to_home,
+                             highlightthickness=0, bd=0, bg="black", activebackground="black")
+        home_button.pack(pady=10)  # Add padding and pack the button
+
+        # Create buttons for sports in the main frame
+        self.main_frame.grid_columnconfigure(0, weight=1)
+        self.main_frame.grid_columnconfigure(1, weight=1)
+        self.main_frame.grid_columnconfigure(2, weight=1)
+
+        button1 = Button(self.main_frame, image=self.basketball_image, command=self.open_basketball_window,
+                         highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button1.grid(row=0, column=0, padx=10, pady=10)  # Grid placement with padding
+
+        button2 = Button(self.main_frame, image=self.football_image, command=self.open_football_window,
+                         highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button2.grid(row=0, column=1, padx=10, pady=10)  # Grid placement with padding
+
+        button3 = Button(self.main_frame, image=self.cricket_image, command=self.open_cricket_window,
+                         highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button3.grid(row=0, column=2, padx=10, pady=10)  # Grid placement with padding
+
+    def open_basketball_window(self):
+        # Function to open a new window for basketball
+        self.create_new_window("Basketball Window")
+
+    def open_football_window(self):
+        # Function to open a new window for football
+        self.create_new_window("Football Window")
+
+    def open_cricket_window(self):
+        # Function to open a new window for cricket
+        self.create_new_window("Cricket Window")
+
+    def create_new_window(self, title):
+        # Function to create a new top-level window
+        new_window = Toplevel(self.window)  # Create a new window
+        new_window.title(title)  # Set window title
+        new_window.geometry("300x200")  # Set window size
+        label = Label(new_window, text=f"This is the {title}", padx=10, pady=10)
+        label.pack()  # Pack label into the window
+
+    def return_to_home(self):
+        # Function to destroy all top-level windows
+        for widget in self.window.winfo_children():
+            if isinstance(widget, Toplevel):
+                widget.destroy()
+
+# Main program entry point
 if __name__ == "__main__":
-    app = App()
-    app.run()
+    app = App()  # Create an instance of the application
