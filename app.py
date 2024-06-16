@@ -82,7 +82,7 @@ class App():
     def open_football_window(self):
         # Function to open a new window for football
         self.create_new_window("Football Window")
-
+    
     def open_cricket_window(self):
         # Function to open a new window for cricket
         self.create_new_window("Cricket Window")
@@ -91,7 +91,8 @@ class App():
         # Function to create a new top-level window
         new_window = Toplevel(self.window)  # Create a new window
         new_window.title(title)  # Set window title
-        new_window.geometry("300x200")  # Set window size
+        new_window.configure(background="black")  # Set window background color
+        new_window.geometry("430x932")  # Set window size
         label = Label(new_window, text=f"This is the {title}", padx=10, pady=10)
         label.pack()  # Pack label into the window
 

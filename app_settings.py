@@ -1,4 +1,4 @@
-# Define constants and configurations
+# Variables
 frame_width = 430
 frame_height = 782
 topF_height = 100
