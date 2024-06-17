@@ -3,22 +3,29 @@ from os import path
 from PIL import Image, ImageTk
 from app_settings import *
 
-# Define the main application class
 class App():
-    def __init__(self):
-        # Initialize the main Tkinter window
-        self.window = Tk()
-        self.window.geometry("430x932")  # Set window size
-        self.window.title("SportsX")  # Set window title
-        self.window.configure(background="black")  # Set window background color
-        self.window.resizable(width=False, height=False)  # Disable window resizing
+    main_app = None  # Class variable to hold the main app instance
 
-        # Create frames for layout
-        self.top_frame = Frame(self.window, background="black", width=frame_width, height=topF_height)
-        self.top_frame.pack_propagate(False)  # Prevent frame from resizing to fit content
-        self.main_frame = Frame(self.window, background="black", width=frame_width, height=frame_height)
+    def __init__(self, root=None, is_sub_window=False):
+        self.is_sub_window = is_sub_window
+        if not root:
+            self.root = Tk()
+            App.main_app = self  # Set the main app instance
+        else:
+            self.root = root
 
-        # Pack frames into the main window
+        # Set the window properties
+        self.root.geometry("430x932")
+        self.root.title("SportsX")
+        self.root.configure(background="black")
+        self.root.resizable(width=False, height=False)
+
+        # Create top and main frames
+        self.top_frame = Frame(self.root, background="black", width=frame_width, height=topF_height)
+        self.top_frame.pack_propagate(False)  # Prevent the frame from resizing to fit content
+        self.main_frame = Frame(self.root, background="black", width=frame_width, height=frame_height)
+
+        # Pack the frames into the main window
         self.top_frame.pack(side=TOP, fill=BOTH)
         self.main_frame.pack(side=TOP, fill=BOTH)
 
@@ -29,16 +36,16 @@ class App():
         self.football_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Football_grey.png')
         self.cricket_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Cricket_grey.png')
 
-        # Load images
+        # Load images and create buttons
         self.load_images()
-        # Create buttons using the loaded images
-        self.create_buttons()
+        self.create_buttons(self.top_frame, self.main_frame)
 
-        # Start the Tkinter main loop
-        self.window.mainloop()
+        # Start the Tkinter main loop if this is the main window
+        if not root:
+            self.root.mainloop()
 
     def load_images(self):
-        # Function to load and resize images using PIL
+        # Function to load and resize images
         self.logo_image = self.resize_image(self.logo_filename, (300, 100))
         self.basketball_image = self.resize_image(self.basketball_filename)
         self.football_image = self.resize_image(self.football_filename)
@@ -47,61 +54,59 @@ class App():
     def resize_image(self, filepath, size=(100, 100)):
         # Function to resize an image
         img = Image.open(filepath)
-        img = img.resize(size, Image.LANCZOS)  # Resize using Lanczos filter
-        return ImageTk.PhotoImage(img)  # Convert to Tkinter PhotoImage
+        img = img.resize(size, Image.LANCZOS)
+        return ImageTk.PhotoImage(img)
 
-    def create_buttons(self):
-        # Function to create buttons in the main frame
-
+    def create_buttons(self, top_frame, main_frame):
         # Create a button for the logo in the top frame
-        home_button = Button(self.top_frame, image=self.logo_image, command=self.return_to_home,
-                             highlightthickness=0, bd=0, bg="black", activebackground="black")
-        home_button.pack(pady=10)  # Add padding and pack the button
+        logo_button = Button(top_frame, image=self.logo_image, command=self.return_to_home, highlightthickness=0, bd=0, bg="black", activebackground="black")
+        logo_button.pack(pady=10)
+
+        # Configure columns in the main frame
+        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(1, weight=1)
+        main_frame.grid_columnconfigure(2, weight=1)
 
         # Create buttons for sports in the main frame
-        self.main_frame.grid_columnconfigure(0, weight=1)
-        self.main_frame.grid_columnconfigure(1, weight=1)
-        self.main_frame.grid_columnconfigure(2, weight=1)
+        button1 = Button(main_frame, image=self.basketball_image, command=self.open_basketball_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button1.grid(row=0, column=0, padx=10, pady=10)
 
-        button1 = Button(self.main_frame, image=self.basketball_image, command=self.open_basketball_window,
-                         highlightthickness=0, bd=0, bg="black", activebackground="black")
-        button1.grid(row=0, column=0, padx=10, pady=10)  # Grid placement with padding
+        button2 = Button(main_frame, image=self.football_image, command=self.open_football_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button2.grid(row=0, column=1, padx=10, pady=10)
 
-        button2 = Button(self.main_frame, image=self.football_image, command=self.open_football_window,
-                         highlightthickness=0, bd=0, bg="black", activebackground="black")
-        button2.grid(row=0, column=1, padx=10, pady=10)  # Grid placement with padding
-
-        button3 = Button(self.main_frame, image=self.cricket_image, command=self.open_cricket_window,
-                         highlightthickness=0, bd=0, bg="black", activebackground="black")
-        button3.grid(row=0, column=2, padx=10, pady=10)  # Grid placement with padding
+        button3 = Button(main_frame, image=self.cricket_image, command=self.open_cricket_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
+        button3.grid(row=0, column=2, padx=10, pady=10)
 
     def open_basketball_window(self):
-        # Function to open a new window for basketball
-        self.create_new_window("Basketball Window")
+        # Open a new window for basketball
+        self.open_new_window("Basketball Window")
 
     def open_football_window(self):
-        # Function to open a new window for football
-        self.create_new_window("Football Window")
-    
-    def open_cricket_window(self):
-        # Function to open a new window for cricket
-        self.create_new_window("Cricket Window")
+        # Open a new window for football
+        self.open_new_window("Football Window")
 
-    def create_new_window(self, title):
-        # Function to create a new top-level window
-        new_window = Toplevel(self.window)  # Create a new window
-        new_window.title(title)  # Set window title
-        new_window.configure(background="black")  # Set window background color
-        new_window.geometry("430x932")  # Set window size
-        label = Label(new_window, text=f"This is the {title}", padx=10, pady=10)
-        label.pack()  # Pack label into the window
+    def open_cricket_window(self):
+        # Open a new window for cricket
+        self.open_new_window("Cricket Window")
+
+    def open_new_window(self, title):
+        # Open a new window and close the current one if it's a sub-window
+        if self.is_sub_window:
+            self.root.destroy()
+        else:
+            self.root.withdraw()
+        new_root = Toplevel()
+        new_app = App(new_root, is_sub_window=True)
+        new_app.root.title(title)
+        new_app.root.configure(background="black")
+        new_app.root.geometry("430x932")
 
     def return_to_home(self):
-        # Function to destroy all top-level windows
-        for widget in self.window.winfo_children():
-            if isinstance(widget, Toplevel):
-                widget.destroy()
+        # Return to the main window by destroying the sub-window and showing the main window
+        if self.is_sub_window:
+            self.root.destroy()
+            App.main_app.root.deiconify()
 
 # Main program entry point
 if __name__ == "__main__":
-    app = App()  # Create an instance of the application
+    main_app = App()
