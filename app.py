@@ -38,6 +38,7 @@ class App():
         self.football_green_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Football_green.png')
         self.cricket_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Cricket_grey.png')
         self.cricket_green_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Cricket_green.png')
+        self.shooting_form_filename = path.join(dirname, r'C:\Users\23399\github-classroom\MRGS-Computer-Scientist\level-2-programming-assessment-CjNuz\Images\Shooting-form.png')
 
         # Load images and create buttons
         self.load_images()
@@ -56,6 +57,7 @@ class App():
         self.football_green_image = self.resize_image(self.football_green_filename)
         self.cricket_image = self.resize_image(self.cricket_filename)
         self.cricket_green_image = self.resize_image(self.cricket_green_filename)
+        self.shooting_form_image = self.resize_image(self.shooting_form_filename, (150, 150))  # Make the button bigger
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image
@@ -72,6 +74,7 @@ class App():
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_columnconfigure(1, weight=1)
         main_frame.grid_columnconfigure(2, weight=1)
+        main_frame.grid_columnconfigure(3, weight=1)  # Add a new column for the new button
 
         # Create sport buttons
         self.basketball_button = Button(main_frame, image=self.basketball_image, command=self.open_basketball_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
@@ -82,6 +85,11 @@ class App():
 
         self.cricket_button = Button(main_frame, image=self.cricket_image, command=self.open_cricket_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
         self.cricket_button.grid(row=0, column=2, padx=10, pady=10)
+
+        # Create shooting form button only if this is the main window or basketball window
+        if not self.is_sub_window or self.root.title() == "Basketball Window":
+            self.shooting_form_button = Button(main_frame, image=self.shooting_form_image, command=self.open_basketball_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
+            self.shooting_form_button.grid(row=1, column=0, padx=10, pady=10)
 
     def open_basketball_window(self):
         # Open basketball window
@@ -94,6 +102,7 @@ class App():
     def open_cricket_window(self):
         # Open cricket window
         self.open_new_window("Cricket Window", change_cricket_image=True)
+
 
     def open_new_window(self, title, change_basketball_image=False, change_football_image=False, change_cricket_image=False):
         # Open new window and change images if needed
