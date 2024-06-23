@@ -149,20 +149,20 @@ class App:
 
     def open_new_window(self, title, change_basketball_image=False, change_football_image=False, change_cricket_image=False):
         # Open new window and change images if needed
-        if self.is_sub_window:
-            return  # Prevent opening a new window if this is a sub-window
+       
         new_window = Toplevel(self.root)
         new_app = App(new_window, is_sub_window=True)
         new_app.root.title(title)
 
         if change_basketball_image:
+            print("CLICKED BASKETBALL")
             new_app.basketball_button.config(image=self.basketball_green_image)
         if change_football_image:
             new_app.football_button.config(image=self.football_green_image)
         if change_cricket_image:
             new_app.cricket_button.config(image=self.cricket_green_image)
 
-        self.root.destroy()  # Close the current window
+        self.root.deiconify()  # Close the current window
 
     def return_to_home(self):
         # Return to home screen
