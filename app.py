@@ -1,8 +1,9 @@
 from tkinter import *
 from os import path
 from PIL import Image, ImageTk
+from app_settings import *
 
-class App():
+class App:
     main_app = None  # Main app instance
 
     def __init__(self, root=None, is_sub_window=False):
@@ -14,7 +15,7 @@ class App():
             self.root = root
 
         # Window properties
-        self.root.geometry("430x932")
+        self.root.geometry("480x932")
         self.root.title("SportsX")
         self.root.configure(background="black")
         self.root.resizable(width=False, height=False)
@@ -30,15 +31,16 @@ class App():
 
         # Image file paths
         dirname = path.dirname(__file__)
-        self.logo_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\sportsxlogo.jpg')
-        self.basketball_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Basketball_grey.png')
-        self.basketball_green_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Basketball_green.png')
-        self.football_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Football_grey.png')
-        self.football_green_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Football_green.png')
-        self.cricket_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Cricket_grey.png')
-        self.cricket_green_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Cricket_green.png')
-        self.shooting_form_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Shooting-form.png')
-        self.bicycle_kick_filename = path.join(dirname, r'C:\Users\chris\Documents\Compsci\level-2-programming-assessment-CjNuz\Images\Bicyclekick.jpg')
+        print("PATHNAME: ", dirname + '\Images\sportsxlogo.jpg')
+        self.logo_filename = dirname + '\Images\sportsxlogo.jpg'
+        self.basketball_filename = dirname + '\Images\Basketball_grey.png'
+        self.basketball_green_filename = dirname + '\Images\Basketball_green.png'
+        self.football_filename = dirname + '\Images\Football_grey.png'
+        self.football_green_filename = dirname + '\Images\Football_green.png'
+        self.cricket_filename = dirname + '\Images\Cricket_grey.png'
+        self.cricket_green_filename = dirname + '\Images\Cricket_green.png'
+        self.shooting_form_filename = dirname + '\Images\Shooting-form.png'
+        self.bicycle_kick_filename = dirname + '\Images\Bicyclekick.jpg'
 
         # Load images and create buttons
         self.load_images()
@@ -77,8 +79,8 @@ class App():
 
     def create_buttons(self, top_frame, main_frame):
         # Create logo button
-        logo_button = Button(top_frame, image=self.logo_image, command=self.return_to_home, highlightthickness=0, bd=0, bg="black", activebackground="black")
-        logo_button.pack(pady=10)
+        self.logo_button = Button(top_frame, image=self.logo_image, command=self.return_to_home, highlightthickness=0, bd=0, bg="black", activebackground="black")
+        self.logo_button.pack(pady=10)
 
         # Configure columns
         main_frame.grid_columnconfigure(0, weight=1)
@@ -159,6 +161,8 @@ class App():
             new_app.football_button.config(image=self.football_green_image)
         if change_cricket_image:
             new_app.cricket_button.config(image=self.cricket_green_image)
+
+        self.root.destroy()  # Close the current window
 
     def return_to_home(self):
         # Return to home screen
