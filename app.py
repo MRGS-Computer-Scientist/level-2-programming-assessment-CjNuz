@@ -1,13 +1,14 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from os import path
+import webbrowser
 
 class App:
     main_app = None  # Main app instance
 
     def __init__(self, root=None, is_sub_window=False):
-        self.is_sub_window = is_sub_window # Flag to indicate if this instance is a sub-window or main window
-        self.root = root if root else Tk() # Set the root window to the provided root or create a new Tkinter window if none is provided
+        self.is_sub_window = is_sub_window  # Flag to indicate if this instance is a sub-window or main window
+        self.root = root if root else Tk()  # Set the root window to the provided root or create a new Tkinter window if none is provided
         if not App.main_app:
             App.main_app = self  # Set main app instance
 
@@ -70,6 +71,16 @@ class App:
         self.shooting_form_image = self.resize_image(self.shooting_form_filename, size=(150, 150))  # Load and resize shooting form image
         self.bicycle_kick_image = self.resize_image(self.bicycle_kick_filename, size=(150, 150))  # Load and resize bicycle kick image
         self.donald_image = self.resize_image(self.donald_filename, size=(150, 150))  # Load and resize Donald image
+
+        # Placeholder images for famous basketball players
+        self.michael_jordan_image = self.resize_image(path.join(dirname, '/Images/Jordan.webp'), size=(50, 50))
+        self.lebron_james_image = self.resize_image(path.join(dirname, '/Images/Lebron.webp'), size=(50, 50))
+        self.kobe_bryant_image = self.resize_image(path.join(dirname, '/Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
+        self.magic_johnson_image = self.resize_image(path.join(dirname, '/Images/Magic-Johnson.webp'), size=(50, 50))
+        self.larry_bird_image = self.resize_image(path.join(dirname, '/Images/LarryBird.webp'), size=(50, 50))
+        self.shaquille_oneal_image = self.resize_image(path.join(dirname, '/Images/Shaq.webp'), size=(50, 50))
+        self.tim_duncan_image = self.resize_image(path.join(dirname, '/Images/TimDuncan.jpg'), size=(50, 50))
+        self.kareem_abduljabbar_image = self.resize_image(path.join(dirname, '/Images/kareem.webp'), size=(50, 50))
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
@@ -166,6 +177,7 @@ class App:
 
         if change_basketball_image:
             new_app.basketball_button.config(image=self.basketball_green_image)
+            new_app.display_basketball_content()
         if change_football_image:
             new_app.football_button.config(image=self.football_green_image)
         if change_cricket_image:
@@ -179,6 +191,82 @@ class App:
         if App.main_app:
             App.main_app.root.deiconify()
 
+    def display_basketball_content(self):
+        def open_google_search(player_name):
+            url = f"https://www.google.com/search?q={player_name.replace(' ', '+')}"
+            webbrowser.open(url)
+
+        # Clear existing content in main_frame
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+        # Basketball rules
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
+
+        rules_title_label = Label(rules_frame, text="Basketball Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
+
+        rules_text = """1. The game is played with two teams of five players each.\n
+2. The objective is to score by shooting the ball through the opponent's hoop.\n
+3. The game is played in four quarters of 12 minutes each.\n
+4. A shot made from beyond the three-point line is worth three points.\n
+5. The team with the most points at the end of the game wins.\n
+6. Players cannot run with the ball without dribbling it.\n
+7. Physical contact is generally not allowed, with different levels of fouls and penalties applied for violations.\n
+8. A free throw is awarded after certain fouls and is worth one point each."""
+
+        rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
+
+        # Famous basketball players
+        players_frame = Frame(self.main_frame, bg="black")
+        players_frame.pack(fill=X, padx=10, pady=5)
+
+        players_title_label = Label(players_frame, text="Famous Basketball Players", bg="black", fg="white", font=("Helvetica", 16))
+        players_title_label.pack(anchor=W, pady=(10, 0))
+
+        players = [
+            ("Michael Jordan", self.michael_jordan_image),
+            ("LeBron James", self.lebron_james_image),
+            ("Kobe Bryant", self.kobe_bryant_image),
+            ("Magic Johnson", self.magic_johnson_image),
+            ("Larry Bird", self.larry_bird_image),
+            ("Shaquille O'Neal", self.shaquille_oneal_image),
+            ("Tim Duncan", self.tim_duncan_image),
+            ("Kareem Abdul-Jabbar", self.kareem_abduljabbar_image)
+        ]
+
+        for player, image in players:
+            player_frame = Frame(players_frame, bg="black")
+            player_frame.pack(fill=X, pady=2)
+
+            player_image_label = Label(player_frame, image=image, bg="black")
+            player_image_label.pack(side=LEFT, padx=(0, 10))
+
+            player_label = Label(player_frame, text=player, bg="black", fg="white", font=("Helvetica", 12), cursor="hand2")
+            player_label.pack(side=LEFT, anchor=W)
+            player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))
+
+        # Interesting basketball facts
+        facts_frame = Frame(self.main_frame, bg="black")
+        facts_frame.pack(fill=X, padx=10, pady=5)
+
+        facts_title_label = Label(facts_frame, text="Interesting Basketball Facts", bg="black", fg="white", font=("Helvetica", 16))
+        facts_title_label.pack(anchor=W, pady=(10, 0))
+
+        facts_text = """- The first game of basketball was played with a soccer ball and two peach baskets as goals.\n
+- Dr. James Naismith invented basketball in 1891 in Springfield, Massachusetts.\n
+- Kareem Abdul-Jabbar holds the record for most points scored in NBA history with 38,387 points.\n
+- The shortest player to ever play in the NBA is Muggsy Bogues, standing at 5 feet 3 inches tall.\n
+- The tallest player in NBA history is Gheorghe Muresan, who stands at 7 feet 7 inches tall."""
+
+        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        facts_text_widget.insert(INSERT, facts_text)
+        facts_text_widget.config(state=DISABLED)
+        facts_text_widget.pack(anchor=W, pady=(0, 10))
+
 if __name__ == "__main__":
     main_app = App()
-
