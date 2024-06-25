@@ -28,17 +28,17 @@ class App:
         self.main_frame.pack(side=TOP, fill=BOTH)
 
         # Image file paths
-        dirname = path.dirname(__file__)  # Get current directory
-        self.logo_filename = path.join(dirname, 'Images/sportsxlogo.jpg')  # Logo image path
-        self.basketball_filename = path.join(dirname, 'Images/Basketball_grey.png')  # Basketball image path
-        self.basketball_green_filename = path.join(dirname, 'Images/Basketball_green.png')  # Basketball green image path
-        self.football_filename = path.join(dirname, 'Images/Football_grey.png')  # Football image path
-        self.football_green_filename = path.join(dirname, 'Images/Football_green.png')  # Football green image path
-        self.cricket_filename = path.join(dirname, 'Images/Cricket_grey.png')  # Cricket image path
-        self.cricket_green_filename = path.join(dirname, 'Images/Cricket_green.png')  # Cricket green image path
-        self.shooting_form_filename = path.join(dirname, 'Images/Shooting-form.png')  # Shooting form image path
-        self.bicycle_kick_filename = path.join(dirname, 'Images/Bicyclekick.jpg')  # Bicycle kick image path
-        self.donald_filename = path.join(dirname, 'Images/Donald.png')  # Donald image path
+        self.dirname = path.dirname(__file__)  # Get current directory
+        self.logo_filename = path.join(self.dirname, 'Images/sportsxlogo.jpg')  # Logo image path
+        self.basketball_filename = path.join(self.dirname, 'Images/Basketball_grey.png')  # Basketball image path
+        self.basketball_green_filename = path.join(self.dirname, 'Images/Basketball_green.png')  # Basketball green image path
+        self.football_filename = path.join(self.dirname, 'Images/Football_grey.png')  # Football image path
+        self.football_green_filename = path.join(self.dirname, 'Images/Football_green.png')  # Football green image path
+        self.cricket_filename = path.join(self.dirname, 'Images/Cricket_grey.png')  # Cricket image path
+        self.cricket_green_filename = path.join(self.dirname, 'Images/Cricket_green.png')  # Cricket green image path
+        self.shooting_form_filename = path.join(self.dirname, 'Images/Shooting-form.png')  # Shooting form image path
+        self.bicycle_kick_filename = path.join(self.dirname, 'Images/Bicyclekick.jpg')  # Bicycle kick image path
+        self.donald_filename = path.join(self.dirname, 'Images/Donald.png')  # Donald image path
 
         # Load images and create buttons
         self.load_images()  # Load all images
@@ -73,14 +73,14 @@ class App:
         self.donald_image = self.resize_image(self.donald_filename, size=(150, 150))  # Load and resize Donald image
 
         # Placeholder images for famous basketball players
-        self.michael_jordan_image = self.resize_image(path.join(dirname, '/Images/Jordan.webp'), size=(50, 50))
-        self.lebron_james_image = self.resize_image(path.join(dirname, '/Images/Lebron.webp'), size=(50, 50))
-        self.kobe_bryant_image = self.resize_image(path.join(dirname, '/Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
-        self.magic_johnson_image = self.resize_image(path.join(dirname, '/Images/Magic-Johnson.webp'), size=(50, 50))
-        self.larry_bird_image = self.resize_image(path.join(dirname, '/Images/LarryBird.webp'), size=(50, 50))
-        self.shaquille_oneal_image = self.resize_image(path.join(dirname, '/Images/Shaq.webp'), size=(50, 50))
-        self.tim_duncan_image = self.resize_image(path.join(dirname, '/Images/TimDuncan.jpg'), size=(50, 50))
-        self.kareem_abduljabbar_image = self.resize_image(path.join(dirname, '/Images/kareem.webp'), size=(50, 50))
+        self.michael_jordan_image = self.resize_image(path.join(self.dirname, 'Images/Jordan.png'), size=(50, 50))
+        self.lebron_james_image = self.resize_image(path.join(self.dirname, 'Images/Lebron.png'), size=(50, 50))
+        self.kobe_bryant_image = self.resize_image(path.join(self.dirname, 'Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
+        self.magic_johnson_image = self.resize_image(path.join(self.dirname, 'Images/Magic-Johnson.png'), size=(50, 50))
+        self.larry_bird_image = self.resize_image(path.join(self.dirname, 'Images/LarryBird.png'), size=(50, 50))
+        self.shaquille_oneal_image = self.resize_image(path.join(self.dirname, 'Images/Shaq.png'), size=(50, 50))
+        self.tim_duncan_image = self.resize_image(path.join(self.dirname, 'Images/TimDuncan.jpg'), size=(50, 50))
+        self.kareem_abduljabbar_image = self.resize_image(path.join(self.dirname, 'Images/kareem.png'), size=(50, 50))
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
@@ -180,8 +180,10 @@ class App:
             new_app.display_basketball_content()
         if change_football_image:
             new_app.football_button.config(image=self.football_green_image)
+            new_app.display_football_content()
         if change_cricket_image:
             new_app.cricket_button.config(image=self.cricket_green_image)
+            new_app.display_cricket_content()
 
         current_window.withdraw()  # Hide the current window
 
@@ -262,6 +264,93 @@ class App:
 - Kareem Abdul-Jabbar holds the record for most points scored in NBA history with 38,387 points.\n
 - The shortest player to ever play in the NBA is Muggsy Bogues, standing at 5 feet 3 inches tall.\n
 - The tallest player in NBA history is Gheorghe Muresan, who stands at 7 feet 7 inches tall."""
+
+        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        facts_text_widget.insert(INSERT, facts_text)
+        facts_text_widget.config(state=DISABLED)
+        facts_text_widget.pack(anchor=W, pady=(0, 10))
+
+    def display_football_content(self):
+        # Clear existing content in main_frame
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+        # Football techniques and form
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
+
+        techniques_title_label = Label(techniques_frame, text="Football Techniques & Form", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
+
+        techniques_text = """1. Passing: Use the inside of your foot for accuracy.\n
+2. Dribbling: Keep the ball close to your feet and use both feet.\n
+3. Shooting: Plant your non-kicking foot beside the ball, keep your head down and follow through.\n
+4. Defending: Stay low, keep your eyes on the ball, and use your body to block the opponent.\n
+5. Heading: Use your forehead, keep your eyes open, and time your jump.\n
+6. Tackling: Use the side tackle sparingly, focus on timing and positioning.\n
+7. Ball Control: Cushion the ball with your foot, thigh, or chest to bring it under control."""
+
+        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        techniques_text_widget.insert(INSERT, techniques_text)
+        techniques_text_widget.config(state=DISABLED)
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))
+
+        # Interesting football facts
+        facts_frame = Frame(self.main_frame, bg="black")
+        facts_frame.pack(fill=X, padx=10, pady=5)
+
+        facts_title_label = Label(facts_frame, text="Interesting Football Facts", bg="black", fg="white", font=("Helvetica", 16))
+        facts_title_label.pack(anchor=W, pady=(10, 0))
+
+        facts_text = """- The earliest form of football was played in China around 476 BC.\n
+- The World Cup is the most-watched sporting event in the world.\n
+- Pelé is the only player to win three World Cups.\n
+- The fastest goal in World Cup history was scored by Hakan Şükür in 11 seconds.\n
+- The first football club in the world was Sheffield FC, founded in 1857."""
+
+        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        facts_text_widget.insert(INSERT, facts_text)
+        facts_text_widget.config(state=DISABLED)
+        facts_text_widget.pack(anchor=W, pady=(0, 10))
+
+    def display_cricket_content(self):
+        # Clear existing content in main_frame
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+        # Cricket iconic moments
+        moments_frame = Frame(self.main_frame, bg="black")
+        moments_frame.pack(fill=X, padx=10, pady=5)
+
+        moments_title_label = Label(moments_frame, text="Iconic Cricket Moments", bg="black", fg="white", font=("Helvetica", 16))
+        moments_title_label.pack(anchor=W, pady=(10, 0))
+
+        moments_text = """1. 1983 World Cup: India wins the World Cup under Kapil Dev's captaincy.\n
+2. 2005 Ashes: England regains the Ashes in one of the greatest series ever.\n
+3. 2007 T20 World Cup: India wins the inaugural T20 World Cup.\n
+4. Brian Lara's 400*: Highest individual score in Test cricket.\n
+5. Sachin Tendulkar's 100th 100: Sachin becomes the first player to score 100 international centuries.\n
+6. Javed Miandad's last-ball six: Wins the 1986 Austral-Asia Cup for Pakistan.\n
+7. Don Bradman's 99.94: Bradman ends his career with an average of 99.94 runs.\n
+8. The first-ever day-night Test match: Played between Australia and New Zealand in 2015."""
+
+        moments_text_widget = Text(moments_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        moments_text_widget.insert(INSERT, moments_text)
+        moments_text_widget.config(state=DISABLED)
+        moments_text_widget.pack(anchor=W, pady=(0, 10))
+
+        # Interesting cricket facts
+        facts_frame = Frame(self.main_frame, bg="black")
+        facts_frame.pack(fill=X, padx=10, pady=5)
+
+        facts_title_label = Label(facts_frame, text="Interesting Cricket Facts", bg="black", fg="white", font=("Helvetica", 16))
+        facts_title_label.pack(anchor=W, pady=(10, 0))
+
+        facts_text = """- The longest cricket match was played for 14 days in 1939 between England and South Africa.\n
+- Sachin Tendulkar is the only player to have scored 100 international centuries.\n
+- The highest individual score in a Test match is 400 not out, scored by Brian Lara.\n
+- Cricket was played for the first time in the Olympic Games in 1900.\n
+- The first ever Test match was played between England and Australia in 1877."""
 
         facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
         facts_text_widget.insert(INSERT, facts_text)
