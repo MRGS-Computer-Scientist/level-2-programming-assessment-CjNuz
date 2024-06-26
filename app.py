@@ -77,10 +77,6 @@ class App:
         self.lebron_james_image = self.resize_image(path.join(self.dirname, 'Images/Lebron.png'), size=(50, 50))
         self.kobe_bryant_image = self.resize_image(path.join(self.dirname, 'Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
         self.magic_johnson_image = self.resize_image(path.join(self.dirname, 'Images/Magic-Johnson.png'), size=(50, 50))
-        self.larry_bird_image = self.resize_image(path.join(self.dirname, 'Images/LarryBird.png'), size=(50, 50))
-        self.shaquille_oneal_image = self.resize_image(path.join(self.dirname, 'Images/Shaq.png'), size=(50, 50))
-        self.tim_duncan_image = self.resize_image(path.join(self.dirname, 'Images/TimDuncan.jpg'), size=(50, 50))
-        self.kareem_abduljabbar_image = self.resize_image(path.join(self.dirname, 'Images/kareem.png'), size=(50, 50))
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
@@ -235,10 +231,6 @@ class App:
             ("LeBron James", self.lebron_james_image),
             ("Kobe Bryant", self.kobe_bryant_image),
             ("Magic Johnson", self.magic_johnson_image),
-            ("Larry Bird", self.larry_bird_image),
-            ("Shaquille O'Neal", self.shaquille_oneal_image),
-            ("Tim Duncan", self.tim_duncan_image),
-            ("Kareem Abdul-Jabbar", self.kareem_abduljabbar_image)
         ]
 
         for player, image in players:
@@ -252,23 +244,23 @@ class App:
             player_label.pack(side=LEFT, anchor=W)
             player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))
 
-        # Interesting basketball facts
-        facts_frame = Frame(self.main_frame, bg="black")
-        facts_frame.pack(fill=X, padx=10, pady=5)
+        # Basketball Techniques
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
 
-        facts_title_label = Label(facts_frame, text="Interesting Basketball Facts", bg="black", fg="white", font=("Helvetica", 16))
-        facts_title_label.pack(anchor=W, pady=(10, 0))
+        techniques_title_label = Label(techniques_frame, text="Basketball Techniques", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
 
-        facts_text = """- The first game of basketball was played with a soccer ball and two peach baskets as goals.\n
-- Dr. James Naismith invented basketball in 1891 in Springfield, Massachusetts.\n
-- Kareem Abdul-Jabbar holds the record for most points scored in NBA history with 38,387 points.\n
-- The shortest player to ever play in the NBA is Muggsy Bogues, standing at 5 feet 3 inches tall.\n
-- The tallest player in NBA history is Gheorghe Muresan, who stands at 7 feet 7 inches tall."""
+        techniques_text = """1. Passing: Use crisp chest passes or bounce passes to move the ball efficiently.\n
+2. Dribbling: Keep the ball low, use your fingertips for control, and change pace to keep defenders guessing.\n
+3. Shooting: Square your body to the hoop, follow through with your shooting hand, and aim for the back of the rim.\n
+4. Rebounding: Box out opponents, anticipate the ball's trajectory, and use both hands to secure the rebound.\n
+5. Defense: Maintain a low stance, stay between your opponent and the basket, and contest shots without fouling."""
 
-        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        facts_text_widget.insert(INSERT, facts_text)
-        facts_text_widget.config(state=DISABLED)
-        facts_text_widget.pack(anchor=W, pady=(0, 10))
+        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        techniques_text_widget.insert(INSERT, techniques_text)
+        techniques_text_widget.config(state=DISABLED)
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))
 
     def display_football_content(self):
         # Clear existing content in main_frame
@@ -313,6 +305,10 @@ class App:
         facts_text_widget.config(state=DISABLED)
         facts_text_widget.pack(anchor=W, pady=(0, 10))
 
+        # Add quiz button
+        quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="green", fg="white", font=("Helvetica", 16))
+        quiz_button.pack(pady=20)
+
     def display_cricket_content(self):
         # Clear existing content in main_frame
         for widget in self.main_frame.winfo_children():
@@ -356,6 +352,59 @@ class App:
         facts_text_widget.insert(INSERT, facts_text)
         facts_text_widget.config(state=DISABLED)
         facts_text_widget.pack(anchor=W, pady=(0, 10))
+
+    def start_quiz(self):
+        self.quiz_questions = [
+            {"question": "Which country won the first World Cup in 1930?", "options": ["Brazil", "Germany", "Uruguay", "Argentina"], "answer": "Uruguay"},
+            {"question": "Who is known as the King of Football?", "options": ["Pelé", "Maradona", "Messi", "Ronaldo"], "answer": "Pelé"},
+            {"question": "Which country has won the most World Cups?", "options": ["Brazil", "Germany", "Italy", "Argentina"], "answer": "Brazil"},
+            {"question": "Who scored the Hand of God goal?", "options": ["Pelé", "Maradona", "Messi", "Ronaldo"], "answer": "Maradona"},
+            {"question": "Which country hosted the 2018 World Cup?", "options": ["Brazil", "Russia", "Qatar", "Germany"], "answer": "Russia"}
+        ]
+        self.quiz_index = 0
+        self.quiz_score = 0
+
+        self.display_quiz_question()
+
+    def display_quiz_question(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+        question_data = self.quiz_questions[self.quiz_index]
+        question_label = Label(self.main_frame, text=question_data["question"], bg="black", fg="white", font=("Helvetica", 16))
+        question_label.pack(pady=20)
+
+        self.quiz_var = StringVar(value="")
+
+        for option in question_data["options"]:
+            radio_button = Radiobutton(self.main_frame, text=option, variable=self.quiz_var, value=option, bg="black", fg="white", font=("Helvetica", 14), selectcolor="black")
+            radio_button.pack(anchor=W, padx=20, pady=5)
+
+        next_button = Button(self.main_frame, text="Next", command=self.check_answer, bg="green", fg="white", font=("Helvetica", 16))
+        next_button.pack(pady=20)
+
+    def check_answer(self):
+        if self.quiz_var.get() == self.quiz_questions[self.quiz_index]["answer"]:
+            self.quiz_score += 1
+
+        self.quiz_index += 1
+        if self.quiz_index < len(self.quiz_questions):
+            self.display_quiz_question()
+        else:
+            self.display_quiz_result()
+
+    def display_quiz_result(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+        result_label = Label(self.main_frame, text=f"Quiz Over! Your score: {self.quiz_score}/{len(self.quiz_questions)}", bg="black", fg="white", font=("Helvetica", 16))
+        result_label.pack(pady=20)
+
+        restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="green", fg="white", font=("Helvetica", 16))
+        restart_button.pack(pady=10)
+
+        home_button = Button(self.main_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
+        home_button.pack(pady=10)
 
 if __name__ == "__main__":
     main_app = App()
