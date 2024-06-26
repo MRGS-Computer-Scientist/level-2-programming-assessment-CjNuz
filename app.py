@@ -78,6 +78,15 @@ class App:
         self.kobe_bryant_image = self.resize_image(path.join(self.dirname, 'Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
         self.magic_johnson_image = self.resize_image(path.join(self.dirname, 'Images/Magic-Johnson.png'), size=(50, 50))
 
+        # Placeholder images for football techniques
+        self.passing_image = self.resize_image(path.join(self.dirname, 'Images/Passing.png'), size=(50, 50))
+        self.dribbling_image = self.resize_image(path.join(self.dirname, 'Images/Dribbling.png'), size=(50, 50))
+        self.shooting_image = self.resize_image(path.join(self.dirname, 'Images/Shooting.png'), size=(50, 50))
+        self.defending_image = self.resize_image(path.join(self.dirname, 'Images/Defending.png'), size=(50, 50))
+        self.heading_image = self.resize_image(path.join(self.dirname, 'Images/Heading.png'), size=(50, 50))
+        self.tackling_image = self.resize_image(path.join(self.dirname, 'Images/Tackling.png'), size=(50, 50))
+        self.ball_control_image = self.resize_image(path.join(self.dirname, 'Images/Ball_Control.png'), size=(50, 50))
+
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
         img = Image.open(filepath)  # Open image file
@@ -274,39 +283,54 @@ class App:
         techniques_title_label = Label(techniques_frame, text="Football Techniques & Form", bg="black", fg="white", font=("Helvetica", 16))
         techniques_title_label.pack(anchor=W, pady=(10, 0))
 
-        techniques_text = """1. Passing: Use the inside of your foot for accuracy.\n
-2. Dribbling: Keep the ball close to your feet and use both feet.\n
-3. Shooting: Plant your non-kicking foot beside the ball, keep your head down and follow through.\n
-4. Defending: Stay low, keep your eyes on the ball, and use your body to block the opponent.\n
-5. Heading: Use your forehead, keep your eyes open, and time your jump.\n
-6. Tackling: Use the side tackle sparingly, focus on timing and positioning.\n
-7. Ball Control: Cushion the ball with your foot, thigh, or chest to bring it under control."""
+        techniques = [
+            ("Passing", self.passing_image, "Use the inside of your foot for accuracy."),
+            ("Dribbling", self.dribbling_image, "Keep the ball close to your feet and use both feet."),
+            ("Shooting", self.shooting_image, "Plant your non-kicking foot beside the ball, keep your head down and follow through."),
+            ("Defending", self.defending_image, "Stay low, keep your eyes on the ball, and use your body to block the opponent."),
+            ("Heading", self.heading_image, "Use your forehead, keep your eyes open, and time your jump."),
+            ("Tackling", self.tackling_image, "Use the side tackle sparingly, focus on timing and positioning."),
+            ("Ball Control", self.ball_control_image, "Cushion the ball with your foot, thigh, or chest to bring it under control."),
+        ]
 
-        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        techniques_text_widget.insert(INSERT, techniques_text)
-        techniques_text_widget.config(state=DISABLED)
-        techniques_text_widget.pack(anchor=W, pady=(0, 10))
+        for technique, image, description in techniques:
+            technique_frame = Frame(techniques_frame, bg="black")
+            technique_frame.pack(fill=X, pady=2)
 
-        # Interesting football facts
-        facts_frame = Frame(self.main_frame, bg="black")
-        facts_frame.pack(fill=X, padx=10, pady=5)
+            technique_image_label = Label(technique_frame, image=image, bg="black")
+            technique_image_label.pack(side=LEFT, padx=(0, 10))
 
-        facts_title_label = Label(facts_frame, text="Interesting Football Facts", bg="black", fg="white", font=("Helvetica", 16))
-        facts_title_label.pack(anchor=W, pady=(10, 0))
+            technique_label = Label(technique_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))
+            technique_label.pack(side=LEFT, anchor=W)
 
-        facts_text = """- The earliest form of football was played in China around 476 BC.\n
-- The World Cup is the most-watched sporting event in the world.\n
-- Pelé is the only player to win three World Cups.\n
-- The fastest goal in World Cup history was scored by Hakan Şükür in 11 seconds.\n
-- The first football club in the world was Sheffield FC, founded in 1857."""
+            description_label = Label(technique_frame, text=description, bg="black", fg="white", font=("Helvetica", 12))
+            description_label.pack(side=LEFT, anchor=W)
 
-        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        facts_text_widget.insert(INSERT, facts_text)
-        facts_text_widget.config(state=DISABLED)
-        facts_text_widget.pack(anchor=W, pady=(0, 10))
+        # Football Rules
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
+
+        rules_title_label = Label(rules_frame, text="Football Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
+
+        rules_text = """1. The game is played with two teams of eleven players each.\n
+2. The objective is to score by getting the ball into the opponent's goal.\n
+3. The game is played in two halves of 45 minutes each.\n
+4. A goal is worth one point.\n
+5. The team with the most points at the end of the game wins.\n
+6. Players cannot use their hands or arms to play the ball, except the goalkeeper within the penalty area.\n
+7. Offside rule: A player is offside if they are closer to the opponent's goal line than both the ball and the second last opponent when the ball is played to them.\n
+8. Fouls and misconduct are penalized by free kicks, yellow cards, or red cards.\n
+9. A penalty kick is awarded for certain fouls committed inside the penalty area.\n
+10. The game is supervised by a referee with the authority to enforce the rules and ensure fair play."""
+
+        rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Add quiz button
-        quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="green", fg="white", font=("Helvetica", 16))
+        quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="black", fg="white", font=("Helvetica", 16))
         quiz_button.pack(pady=20)
 
     def display_cricket_content(self):
@@ -314,26 +338,49 @@ class App:
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
-        # Cricket iconic moments
-        moments_frame = Frame(self.main_frame, bg="black")
-        moments_frame.pack(fill=X, padx=10, pady=5)
+        # Cricket rules
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
 
-        moments_title_label = Label(moments_frame, text="Iconic Cricket Moments", bg="black", fg="white", font=("Helvetica", 16))
-        moments_title_label.pack(anchor=W, pady=(10, 0))
+        rules_title_label = Label(rules_frame, text="Cricket Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
 
-        moments_text = """1. 1983 World Cup: India wins the World Cup under Kapil Dev's captaincy.\n
-2. 2005 Ashes: England regains the Ashes in one of the greatest series ever.\n
-3. 2007 T20 World Cup: India wins the inaugural T20 World Cup.\n
-4. Brian Lara's 400*: Highest individual score in Test cricket.\n
-5. Sachin Tendulkar's 100th 100: Sachin becomes the first player to score 100 international centuries.\n
-6. Javed Miandad's last-ball six: Wins the 1986 Austral-Asia Cup for Pakistan.\n
-7. Don Bradman's 99.94: Bradman ends his career with an average of 99.94 runs.\n
-8. The first-ever day-night Test match: Played between Australia and New Zealand in 2015."""
+        rules_text = """1. Cricket is played between two teams of eleven players each.\n
+2. The game is played on a circular or oval-shaped field with a 22-yard pitch in the center.\n
+3. The objective is to score runs by hitting the ball and running between the wickets.\n
+4. A run is scored each time the batsmen successfully run to the opposite end of the pitch.\n
+5. The game can be played in different formats: Test cricket (5 days), One-Day Internationals (50 overs per side), and T20 Internationals (20 overs per side).\n
+6. The team with the most runs at the end of the match wins.\n
+7. A bowler delivers the ball overarm to the batsman, aiming to get them out.\n
+8. There are several ways a batsman can be out: bowled, caught, leg before wicket (LBW), run out, stumped, and hit wicket.\n
+9. The fielding team tries to prevent runs by catching the ball, throwing it to the wicket, or stopping it with their body.\n
+10. The game is supervised by two on-field umpires who ensure the rules are followed and make decisions on dismissals."""
 
-        moments_text_widget = Text(moments_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        moments_text_widget.insert(INSERT, moments_text)
-        moments_text_widget.config(state=DISABLED)
-        moments_text_widget.pack(anchor=W, pady=(0, 10))
+        rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
+
+        # Cricket techniques
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
+
+        techniques_title_label = Label(techniques_frame, text="Cricket Techniques", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
+
+        techniques_text = """1. Batting: Stand sideways, keep your eyes on the ball, and use a straight bat.\n
+2. Bowling: Keep your arm straight, follow through, and aim for the stumps.\n
+3. Fielding: Stay low, keep your eyes on the ball, and use two hands to catch.\n
+4. Wicketkeeping: Stay low, keep your gloves close to the stumps, and move quickly.\n
+5. Running between wickets: Run in straight lines, communicate with your partner, and slide your bat into the crease.\n
+6. Spin Bowling: Use your fingers or wrist to impart spin on the ball.\n
+7. Fast Bowling: Use a strong run-up, high arm action, and follow through with your body.\n
+8. Catching: Keep your eyes on the ball, cushion the catch with soft hands, and follow through with your body."""
+
+        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        techniques_text_widget.insert(INSERT, techniques_text)
+        techniques_text_widget.config(state=DISABLED)
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Interesting cricket facts
         facts_frame = Frame(self.main_frame, bg="black")
@@ -380,7 +427,7 @@ class App:
             radio_button = Radiobutton(self.main_frame, text=option, variable=self.quiz_var, value=option, bg="black", fg="white", font=("Helvetica", 14), selectcolor="black")
             radio_button.pack(anchor=W, padx=20, pady=5)
 
-        next_button = Button(self.main_frame, text="Next", command=self.check_answer, bg="green", fg="white", font=("Helvetica", 16))
+        next_button = Button(self.main_frame, text="Next", command=self.check_answer, bg="black", fg="white", font=("Helvetica", 16))
         next_button.pack(pady=20)
 
     def check_answer(self):
@@ -400,7 +447,7 @@ class App:
         result_label = Label(self.main_frame, text=f"Quiz Over! Your score: {self.quiz_score}/{len(self.quiz_questions)}", bg="black", fg="white", font=("Helvetica", 16))
         result_label.pack(pady=20)
 
-        restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="green", fg="white", font=("Helvetica", 16))
+        restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="red", fg="white", font=("Helvetica", 16))
         restart_button.pack(pady=10)
 
         home_button = Button(self.main_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
