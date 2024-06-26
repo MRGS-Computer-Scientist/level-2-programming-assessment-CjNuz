@@ -13,7 +13,7 @@ class App:
             App.main_app = self  # Set main app instance
 
         # Window properties
-        self.root.geometry("480x932")  # Set window size
+        self.root.geometry("480x932+100+100")  # Set window size, "100+100" makes the window stays in place 
         self.root.title("SportsX")  # Set window title
         self.root.configure(background="black")  # Set background color
         self.root.resizable(width=False, height=False)  # Disable window resizing
