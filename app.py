@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import Image, ImageTk
 from os import path
 import webbrowser
+import random
+import time
 
 class App:
     main_app = None  # Main app instance
@@ -79,7 +81,6 @@ class App:
         self.larry_bird_image = self.resize_image(path.join(self.dirname, 'Images/LarryBird.png'), size=(50, 50))
         self.shaquille_oneal_image = self.resize_image(path.join(self.dirname, 'Images/Shaq.png'), size=(50, 50))
         self.tim_duncan_image = self.resize_image(path.join(self.dirname, 'Images/TimDuncan.jpg'), size=(50, 50))
-
 
         # Placeholder images for football techniques
         self.passing_image = self.resize_image(path.join(self.dirname, 'Images/Passing.png'), size=(50, 50))
@@ -391,23 +392,64 @@ class App:
         techniques_text_widget.config(state=DISABLED)
         techniques_text_widget.pack(anchor=W, pady=(0, 10))
 
-        # Interesting cricket facts
-        facts_frame = Frame(self.main_frame, bg="black")
-        facts_frame.pack(fill=X, padx=10, pady=5)
+        # Clicking game
+        game_frame = Frame(self.main_frame, bg="black")
+        game_frame.pack(fill=X, padx=10, pady=5)
 
-        facts_title_label = Label(facts_frame, text="Interesting Cricket Facts", bg="black", fg="white", font=("Helvetica", 16))
-        facts_title_label.pack(anchor=W, pady=(10, 0))
+        game_title_label = Label(game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))
+        game_title_label.pack(anchor=W, pady=(10, 0))
 
-        facts_text = """- The longest cricket match was played for 14 days in 1939 between England and South Africa.\n
-- Sachin Tendulkar is the only player to have scored 100 international centuries.\n
-- The highest individual score in a Test match is 400 not out, scored by Brian Lara.\n
-- Cricket was played for the first time in the Olympic Games in 1900.\n
-- The first ever Test match was played between England and Australia in 1877."""
+        start_button = Button(game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))
+        start_button.pack(pady=20)
 
-        facts_text_widget = Text(facts_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        facts_text_widget.insert(INSERT, facts_text)
-        facts_text_widget.config(state=DISABLED)
-        facts_text_widget.pack(anchor=W, pady=(0, 10))
+    def start_clicking_game(self):
+        self.game_frame = Frame(self.main_frame, bg="black", width=400, height=400)
+        self.game_frame.pack(expand=True, fill=BOTH)
+        self.game_frame.pack_propagate(False)
+
+        self.score = 0
+        self.time_left = 30
+
+        self.score_label = Label(self.game_frame, text=f"Score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
+        self.score_label.pack()
+
+        self.time_label = Label(self.game_frame, text=f"Time left: {self.time_left}", bg="black", fg="white", font=("Helvetica", 16))
+        self.time_label.pack()
+
+        self.click_button = Button(self.game_frame, text="Click Me!", command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
+        self.click_button.pack()
+
+        self.update_game()
+
+    def update_game(self):
+        if self.time_left > 0:
+            self.time_left -= 1
+            self.time_label.config(text=f"Time left: {self.time_left}")
+
+            x = random.randint(0, self.game_frame.winfo_width() - self.click_button.winfo_width())
+            y = random.randint(0, self.game_frame.winfo_height() - self.click_button.winfo_height())
+            self.click_button.place(x=x, y=y)
+
+            self.root.after(1000, self.update_game)
+        else:
+            self.end_game()
+
+    def update_score(self):
+        self.score += 1
+        self.score_label.config(text=f"Score: {self.score}")
+
+    def end_game(self):
+        for widget in self.game_frame.winfo_children():
+            widget.destroy()
+
+        end_label = Label(self.game_frame, text=f"Game Over! Your score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
+        end_label.pack(pady=20)
+
+        restart_button = Button(self.game_frame, text="Restart Game", command=self.start_clicking_game, bg="green", fg="white", font=("Helvetica", 16))
+        restart_button.pack(pady=10)
+
+        home_button = Button(self.game_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
+        home_button.pack(pady=10)
 
     def start_quiz(self):
         self.quiz_questions = [
