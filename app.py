@@ -73,10 +73,13 @@ class App:
         self.donald_image = self.resize_image(self.donald_filename, size=(150, 150))  # Load and resize Donald image
 
         # Placeholder images for famous basketball players
-        self.michael_jordan_image = self.resize_image(path.join(self.dirname, 'Images/Jordan.png'), size=(50, 50))
         self.lebron_james_image = self.resize_image(path.join(self.dirname, 'Images/Lebron.png'), size=(50, 50))
         self.kobe_bryant_image = self.resize_image(path.join(self.dirname, 'Images/Kobe_Bryant_2014.jpg'), size=(50, 50))
         self.magic_johnson_image = self.resize_image(path.join(self.dirname, 'Images/Magic-Johnson.png'), size=(50, 50))
+        self.larry_bird_image = self.resize_image(path.join(self.dirname, 'Images/LarryBird.png'), size=(50, 50))
+        self.shaquille_oneal_image = self.resize_image(path.join(self.dirname, 'Images/Shaq.png'), size=(50, 50))
+        self.tim_duncan_image = self.resize_image(path.join(self.dirname, 'Images/TimDuncan.jpg'), size=(50, 50))
+
 
         # Placeholder images for football techniques
         self.passing_image = self.resize_image(path.join(self.dirname, 'Images/Passing.png'), size=(50, 50))
@@ -236,10 +239,12 @@ class App:
         players_title_label.pack(anchor=W, pady=(10, 0))
 
         players = [
-            ("Michael Jordan", self.michael_jordan_image),
             ("LeBron James", self.lebron_james_image),
             ("Kobe Bryant", self.kobe_bryant_image),
             ("Magic Johnson", self.magic_johnson_image),
+            ("Larry Bird", self.larry_bird_image),
+            ("Shaquille O'Neal", self.shaquille_oneal_image),
+            ("Tim Duncan", self.tim_duncan_image),
         ]
 
         for player, image in players:
@@ -295,16 +300,19 @@ class App:
 
         for technique, image, description in techniques:
             technique_frame = Frame(techniques_frame, bg="black")
-            technique_frame.pack(fill=X, pady=2)
+            technique_frame.pack(fill=X, pady=2, padx=10)
 
             technique_image_label = Label(technique_frame, image=image, bg="black")
             technique_image_label.pack(side=LEFT, padx=(0, 10))
 
-            technique_label = Label(technique_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))
-            technique_label.pack(side=LEFT, anchor=W)
+            text_frame = Frame(technique_frame, bg="black")
+            text_frame.pack(side=LEFT, fill=X)
 
-            description_label = Label(technique_frame, text=description, bg="black", fg="white", font=("Helvetica", 12))
-            description_label.pack(side=LEFT, anchor=W)
+            technique_label = Label(text_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))
+            technique_label.pack(anchor=W)
+
+            description_label = Label(text_frame, text=description, bg="black", fg="white", font=("Helvetica", 12), wraplength=300, justify=LEFT)
+            description_label.pack(anchor=W)
 
         # Football Rules
         rules_frame = Frame(self.main_frame, bg="black")
@@ -332,6 +340,7 @@ class App:
         # Add quiz button
         quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="black", fg="white", font=("Helvetica", 16))
         quiz_button.pack(pady=20)
+
 
     def display_cricket_content(self):
         # Clear existing content in main_frame
