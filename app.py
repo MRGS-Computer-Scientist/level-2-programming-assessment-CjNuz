@@ -33,11 +33,11 @@ class App:
         self.dirname = path.dirname(__file__)  # Get current directory
         self.logo_filename = path.join(self.dirname, 'Images/sportsxlogo.jpg')  # Logo image path
         self.basketball_filename = path.join(self.dirname, 'Images/Basketball_grey.png')  # Basketball image path
-        self.basketball_content_filename = path.join(self.dirname, 'Images/Basketball_content.png')  # Basketball green image path
+        self.basketball_green_filename = path.join(self.dirname, 'Images/Basketball_green.png')  # Basketball green image path
         self.football_filename = path.join(self.dirname, 'Images/Football_grey.png')  # Football image path
-        self.football_content_filename = path.join(self.dirname, 'Images/Football_content.png')  # Football green image path
+        self.football_green_filename = path.join(self.dirname, 'Images/Football_green.png')  # Football green image path
         self.cricket_filename = path.join(self.dirname, 'Images/Cricket_grey.png')  # Cricket image path
-        self.cricket_content_filename = path.join(self.dirname, 'Images/Cricket_content.png')  # Cricket green image path
+        self.cricket_green_filename = path.join(self.dirname, 'Images/Cricket_green.png')  # Cricket green image path
         self.shooting_form_filename = path.join(self.dirname, 'Images/Shooting-form.png')  # Shooting form image path
         self.bicycle_kick_filename = path.join(self.dirname, 'Images/Bicyclekick.jpg')  # Bicycle kick image path
         self.donald_filename = path.join(self.dirname, 'Images/Donald.png')  # Donald image path
@@ -65,11 +65,11 @@ class App:
         # Load and resize images
         self.logo_image = self.resize_image(self.logo_filename, (300, 100))  # Load and resize logo image
         self.basketball_image = self.resize_image(self.basketball_filename, (100, 100))  # Load and resize basketball image
-        self.basketball_content_image = self.resize_image(self.basketball_content_filename, (100, 100))  # Load and resize green basketball image
+        self.basketball_green_image = self.resize_image(self.basketball_green_filename, (100, 100))  # Load and resize green basketball image
         self.football_image = self.resize_image(self.football_filename, (100, 100))  # Load and resize football image
-        self.football_content_image = self.resize_image(self.football_content_filename, (100, 100))  # Load and resize green football image
+        self.football_green_image = self.resize_image(self.football_green_filename, (100, 100))  # Load and resize green football image
         self.cricket_image = self.resize_image(self.cricket_filename, (100, 100))  # Load and resize cricket image
-        self.cricket_content_image = self.resize_image(self.cricket_content_filename, (100, 100))  # Load and resize green cricket image
+        self.cricket_green_image = self.resize_image(self.cricket_green_filename, (100, 100))  # Load and resize green cricket image
         self.shooting_form_image = self.resize_image(self.shooting_form_filename, size=(150, 150))  # Load and resize shooting form image
         self.bicycle_kick_image = self.resize_image(self.bicycle_kick_filename, size=(150, 150))  # Load and resize bicycle kick image
         self.donald_image = self.resize_image(self.donald_filename, size=(150, 150))  # Load and resize Donald image
@@ -185,16 +185,16 @@ class App:
         new_app.root.title(title)
 
         if change_basketball_image:
-            new_app.basketball_button.config(image=self.basketball_content_image)
+            new_app.basketball_button.config(image=self.basketball_green_image)
             new_app.display_basketball_content()
         if change_football_image:
-            new_app.football_button.config(image=self.football_content_image)
+            new_app.football_button.config(image=self.football_green_image)
             new_app.display_football_content()
         if change_cricket_image:
-            new_app.cricket_button.config(image=self.cricket_content_image)
+            new_app.cricket_button.config(image=self.cricket_green_image)
             new_app.display_cricket_content()
 
-        current_window.withdraw()  # Hide the current window
+        current_window.withdraw()  # Hide the current windowz
 
     def return_to_home(self):
         # Return to home screen from sub-window
