@@ -194,7 +194,7 @@ class App:
             new_app.cricket_button.config(image=self.cricket_green_image)
             new_app.display_cricket_content()
 
-        current_window.withdraw()  # Hide the current windowz
+        current_window.withdraw()  # Hide the current window
 
     def return_to_home(self):
         # Return to home screen from sub-window
