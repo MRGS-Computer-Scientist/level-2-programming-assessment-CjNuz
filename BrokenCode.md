@@ -1,9 +1,9 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from os import path
-import webbrowser #For the basketball players
-import random # Randomizer for the button in the clicking game
-import time #Timer for the clicking game
+import webbrowser
+import random
+import time
 
 class App:
     main_app = None  # Main app instance
@@ -202,7 +202,6 @@ class App:
         if App.main_app:
             App.main_app.root.deiconify()
 
-        #For the basketball players when clicked it will search their name
     def display_basketball_content(self):
         def open_google_search(player_name):
             url = f"https://www.google.com/search?q={player_name.replace(' ', '+')}"
@@ -213,12 +212,12 @@ class App:
             widget.destroy()
 
         # Basketball rules
-        rules_frame = Frame(self.main_frame, bg="black")# Create a frame for basketball rules
-        rules_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
 
-        rules_title_label = Label(rules_frame, text="Basketball Rules", bg="black", fg="white", font=("Helvetica", 16))# Title label for rules
-        rules_title_label.pack(anchor=W, pady=(10, 0))#Pack the title label
-        #The actual rules text
+        rules_title_label = Label(rules_frame, text="Basketball Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
+
         rules_text = """1. The game is played with two teams of five players each.\n
 2. The objective is to score by shooting the ball through the opponent's hoop.\n
 3. The game is played in four quarters of 12 minutes each.\n
@@ -227,19 +226,19 @@ class App:
 6. Players cannot run with the ball without dribbling it.\n
 7. Physical contact is generally not allowed, with different levels of fouls and penalties applied for violations.\n
 8. A free throw is awarded after certain fouls and is worth one point each."""
-        #Create a text widget for displaying rules
+
         rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        rules_text_widget.insert(INSERT, rules_text) # Insert the rules text
-        rules_text_widget.config(state=DISABLED)  # Disable editing
-        rules_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Famous basketball players
-        players_frame = Frame(self.main_frame, bg="black")# Create a frame for players
-        players_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        players_frame = Frame(self.main_frame, bg="black")
+        players_frame.pack(fill=X, padx=10, pady=5)
 
-        players_title_label = Label(players_frame, text="Famous Basketball Players", bg="black", fg="white", font=("Helvetica", 16))# Title label for players
-        players_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
-        # List of players and their images
+        players_title_label = Label(players_frame, text="Famous Basketball Players", bg="black", fg="white", font=("Helvetica", 16))
+        players_title_label.pack(anchor=W, pady=(10, 0))
+
         players = [
             ("LeBron James", self.lebron_james_image),
             ("Kobe Bryant", self.kobe_bryant_image),
@@ -248,51 +247,48 @@ class App:
             ("Shaquille O'Neal", self.shaquille_oneal_image),
             ("Tim Duncan", self.tim_duncan_image),
         ]
-        # Loop through each player and create a frame for them
+
         for player, image in players:
-            player_frame = Frame(players_frame, bg="black")# Create a frame for each player
-            player_frame.pack(fill=X, pady=2)# Pack the player frame
+            player_frame = Frame(players_frame, bg="black")
+            player_frame.pack(fill=X, pady=2)
 
-            player_image_label = Label(player_frame, image=image, bg="black")# Image label for player
-            player_image_label.pack(side=LEFT, padx=(0, 10))# Pack the image label
+            player_image_label = Label(player_frame, image=image, bg="black")
+            player_image_label.pack(side=LEFT, padx=(0, 10))
 
-            player_label = Label(player_frame, text=player, bg="black", fg="white", font=("Helvetica", 12), cursor="hand2")# Label for player's name
-            player_label.pack(side=LEFT, anchor=W)# Pack the player's name label
-            player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))# Bind click event to open Google search
+            player_label = Label(player_frame, text=player, bg="black", fg="white", font=("Helvetica", 12), cursor="hand2")
+            player_label.pack(side=LEFT, anchor=W)
+            player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))
 
         # Basketball Techniques
-        techniques_frame = Frame(self.main_frame, bg="black")# Create a frame for techniques
-        techniques_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
 
+        techniques_title_label = Label(techniques_frame, text="Basketball Techniques", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
 
-        techniques_title_label = Label(techniques_frame, text="Basketball Techniques", bg="black", fg="white", font=("Helvetica", 16))# Title label for technique
-        techniques_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
-
-        # The actual techniques text
         techniques_text = """1. Passing: Use crisp chest passes or bounce passes to move the ball efficiently.\n
 2. Dribbling: Keep the ball low, use your fingertips for control, and change pace to keep defenders guessing.\n
 3. Shooting: Square your body to the hoop, follow through with your shooting hand, and aim for the back of the rim.\n
 4. Rebounding: Box out opponents, anticipate the ball's trajectory, and use both hands to secure the rebound.\n
 5. Defense: Maintain a low stance, stay between your opponent and the basket, and contest shots without fouling."""
-        # Create a text widget for displaying techniques
-        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        techniques_text_widget.insert(INSERT, techniques_text)# Insert the techniques text
-        techniques_text_widget.config(state=DISABLED)# Disable editing
-        techniques_text_widget.pack(anchor=W, pady=(0, 10))# Pack the text widget
 
+        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        techniques_text_widget.insert(INSERT, techniques_text)
+        techniques_text_widget.config(state=DISABLED)
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))
 
     def display_football_content(self):
         # Clear existing content in main_frame
         for widget in self.main_frame.winfo_children():
-            widget.destroy() # Destroy each widget in the main frame
+            widget.destroy()
 
         # Football techniques and form
-        techniques_frame = Frame(self.main_frame, bg="black")# Create a frame for football techniques
-        techniques_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
 
-        techniques_title_label = Label(techniques_frame, text="Football Techniques & Form", bg="black", fg="white", font=("Helvetica", 16))# Title label for techniques
-        techniques_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
-        # List of football techniques and descriptions
+        techniques_title_label = Label(techniques_frame, text="Football Techniques & Form", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
+
         techniques = [
             ("Passing", self.passing_image, "Use the inside of your foot for accuracy."),
             ("Dribbling", self.dribbling_image, "Keep the ball close to your feet and use both feet."),
@@ -302,32 +298,30 @@ class App:
             ("Tackling", self.tackling_image, "Use the side tackle sparingly, focus on timing and positioning."),
             ("Ball Control", self.ball_control_image, "Cushion the ball with your foot, thigh, or chest to bring it under control."),
         ]
-        # Loop through each technique and create a frame for it
+
         for technique, image, description in techniques:
-            technique_frame = Frame(techniques_frame, bg="black")# Create a frame for each technique
-            technique_frame.pack(fill=X, pady=2, padx=10)# Pack the technique frame
+            technique_frame = Frame(techniques_frame, bg="black")
+            technique_frame.pack(fill=X, pady=2, padx=10)
 
-            technique_image_label = Label(technique_frame, image=image, bg="black")# Image label for technique
-            technique_image_label.pack(side=LEFT, padx=(0, 10))# Pack the image label
+            technique_image_label = Label(technique_frame, image=image, bg="black")
+            technique_image_label.pack(side=LEFT, padx=(0, 10))
 
-            text_frame = Frame(technique_frame, bg="black")# Create a frame for text
-            text_frame.pack(side=LEFT, fill=X)# Pack the text frame
+            text_frame = Frame(technique_frame, bg="black")
+            text_frame.pack(side=LEFT, fill=X)
 
-            technique_label = Label(text_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))# Label for technique name
-            technique_label.pack(anchor=W)# Pack the technique name label
+            technique_label = Label(text_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))
+            technique_label.pack(anchor=W)
 
-
-            description_label = Label(text_frame, text=description, bg="black", fg="white", font=("Helvetica", 12), wraplength=300, justify=LEFT)# Label for technique description
-            description_label.pack(anchor=W)# Pack the description label
+            description_label = Label(text_frame, text=description, bg="black", fg="white", font=("Helvetica", 12), wraplength=300, justify=LEFT)
+            description_label.pack(anchor=W)
 
         # Football Rules
-        rules_frame = Frame(self.main_frame, bg="black")  # Create a frame for football rules
-        rules_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
 
-        rules_title_label = Label(rules_frame, text="Football Rules", bg="black", fg="white", font=("Helvetica", 16))  # Title label for rules
-        rules_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
+        rules_title_label = Label(rules_frame, text="Football Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
 
-        # The actual rules text
         rules_text = """1. The game is played with two teams of eleven players each.\n
 2. The objective is to score by getting the ball into the opponent's goal.\n
 3. The game is played in two halves of 45 minutes each.\n
@@ -339,29 +333,28 @@ class App:
 9. A penalty kick is awarded for certain fouls committed inside the penalty area.\n
 10. The game is supervised by a referee with the authority to enforce the rules and ensure fair play."""
 
-        # Create a text widget for displaying rules
         rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        rules_text_widget.insert(INSERT, rules_text)  # Insert the rules text
-        rules_text_widget.config(state=DISABLED)  # Disable editing
-        rules_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Add quiz button
-        quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="black", fg="white", font=("Helvetica", 16))  # Button for starting quiz
-        quiz_button.pack(pady=20)  # Pack the quiz button
+        quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="black", fg="white", font=("Helvetica", 16))
+        quiz_button.pack(pady=20)
 
 
     def display_cricket_content(self):
         # Clear existing content in main_frame
         for widget in self.main_frame.winfo_children():
-            widget.destroy() # Destroy each widget in the main frame
+            widget.destroy()
 
         # Cricket rules
-        rules_frame = Frame(self.main_frame, bg="black")# Create a frame for cricket rules
-        rules_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        rules_frame = Frame(self.main_frame, bg="black")
+        rules_frame.pack(fill=X, padx=10, pady=5)
 
-        rules_title_label = Label(rules_frame, text="Cricket Rules", bg="black", fg="white", font=("Helvetica", 16))# Title label for rules
-        rules_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
-        # The actual rules text
+        rules_title_label = Label(rules_frame, text="Cricket Rules", bg="black", fg="white", font=("Helvetica", 16))
+        rules_title_label.pack(anchor=W, pady=(10, 0))
+
         rules_text = """1. Cricket is played between two teams of eleven players each.\n
 2. The game is played on a circular or oval-shaped field with a 22-yard pitch in the center.\n
 3. The objective is to score runs by hitting the ball and running between the wickets.\n
@@ -373,20 +366,17 @@ class App:
 9. The fielding team tries to prevent runs by catching the ball, throwing it to the wicket, or stopping it with their body.\n
 10. The game is supervised by two on-field umpires who ensure the rules are followed and make decisions on dismissals."""
 
-        # Create a text widget for displaying rules
         rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        rules_text_widget.insert(INSERT, rules_text)  # Insert the rules text
-        rules_text_widget.config(state=DISABLED)  # Disable editing
-        rules_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        rules_text_widget.insert(INSERT, rules_text)
+        rules_text_widget.config(state=DISABLED)
+        rules_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Cricket techniques
-        techniques_frame = Frame(self.main_frame, bg="black")  # Create a frame for cricket techniques
-        techniques_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        techniques_frame = Frame(self.main_frame, bg="black")
+        techniques_frame.pack(fill=X, padx=10, pady=5)
 
-        techniques_title_label = Label(techniques_frame, text="Cricket Techniques", bg="black", fg="white", font=("Helvetica", 16))  # Title label for techniques
-        techniques_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
-
-        # The actual techniques text
+        techniques_title_label = Label(techniques_frame, text="Cricket Techniques", bg="black", fg="white", font=("Helvetica", 16))
+        techniques_title_label.pack(anchor=W, pady=(10, 0))
 
         techniques_text = """1. Batting: Stand sideways, keep your eyes on the ball, and use a straight bat.\n
 2. Bowling: Keep your arm straight, follow through, and aim for the stumps.\n
@@ -397,81 +387,71 @@ class App:
 7. Fast Bowling: Use a strong run-up, high arm action, and follow through with your body.\n
 8. Catching: Keep your eyes on the ball, cushion the catch with soft hands, and follow through with your body."""
 
-        # Create a text widget for displaying techniques
         techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        techniques_text_widget.insert(INSERT, techniques_text)  # Insert the techniques text
-        techniques_text_widget.config(state=DISABLED)  # Disable editing
-        techniques_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        techniques_text_widget.insert(INSERT, techniques_text)
+        techniques_text_widget.config(state=DISABLED)
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))
 
         # Clicking game
-        game_frame = Frame(self.main_frame, bg="black")  # Create a frame for the clicking game
-        game_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        game_frame = Frame(self.main_frame, bg="black")
+        game_frame.pack(fill=X, padx=10, pady=5)
 
-        game_title_label = Label(game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))  # Title label for the game
-        game_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
+        game_title_label = Label(game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))
+        game_title_label.pack(anchor=W, pady=(10, 0))
 
-        start_button = Button(game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))  # Button to start the game
-        start_button.pack(pady=20)  # Pack the start button
+        start_button = Button(game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))
+        start_button.pack(pady=20)
 
     def start_clicking_game(self):
-        # Set up the game frame
         self.game_frame = Frame(self.main_frame, bg="black", width=400, height=400)
         self.game_frame.pack(expand=True, fill=BOTH)
         self.game_frame.pack_propagate(False)
 
-        self.score = 0  # Initialize score
-        self.time_left = 30  # Initialize time left
+        self.score = 0
+        self.time_left = 30
 
-        # Score label
         self.score_label = Label(self.game_frame, text=f"Score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
         self.score_label.pack()
 
-        # Time left label
         self.time_label = Label(self.game_frame, text=f"Time left: {self.time_left}", bg="black", fg="white", font=("Helvetica", 16))
         self.time_label.pack()
 
-        # Click button
-        self.click_button = Button(self.game_frame, text="🏏", command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
+        self.click_button = Button(self.game_frame, text="Click Me!", command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
         self.click_button.pack()
 
-        self.update_game()  # Start the game update loop
+        self.update_game()
 
     def update_game(self):
         if self.time_left > 0:
-            self.time_left -= 1  # Decrease time left
-            self.time_label.config(text=f"Time left: {self.time_left}")  # Update time label
+            self.time_left -= 1
+            self.time_label.config(text=f"Time left: {self.time_left}")
 
-            # Randomly place the button within the game frame
             x = random.randint(0, self.game_frame.winfo_width() - self.click_button.winfo_width())
             y = random.randint(0, self.game_frame.winfo_height() - self.click_button.winfo_height())
             self.click_button.place(x=x, y=y)
 
-            self.root.after(1000, self.update_game)  # Update every second
+            self.root.after(1000, self.update_game)
         else:
-            self.end_game()  # End the game when time runs out
+            self.end_game()
 
     def update_score(self):
-        self.score += 1  # Increase score
-        self.score_label.config(text=f"Score: {self.score}")  # Update score label
+        self.score += 1
+        self.score_label.config(text=f"Score: {self.score}")
 
     def end_game(self):
         for widget in self.game_frame.winfo_children():
-            widget.destroy()  # Clear game frame
+            widget.destroy()
 
-        # Display end game message
         end_label = Label(self.game_frame, text=f"Game Over! Your score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
         end_label.pack(pady=20)
 
-        # Restart button
         restart_button = Button(self.game_frame, text="Restart Game", command=self.start_clicking_game, bg="green", fg="white", font=("Helvetica", 16))
         restart_button.pack(pady=10)
 
-        # Home button
         home_button = Button(self.game_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
         home_button.pack(pady=10)
 
     def start_quiz(self):
-        # Set up quiz questions
         self.quiz_questions = [
             {"question": "Which country won the first World Cup in 1930?", "options": ["Brazil", "Germany", "Uruguay", "Argentina"], "answer": "Uruguay"},
             {"question": "Who is known as the King of Football?", "options": ["Pelé", "Maradona", "Messi", "Ronaldo"], "answer": "Pelé"},
@@ -479,52 +459,48 @@ class App:
             {"question": "Who scored the Hand of God goal?", "options": ["Pelé", "Maradona", "Messi", "Ronaldo"], "answer": "Maradona"},
             {"question": "Which country hosted the 2018 World Cup?", "options": ["Brazil", "Russia", "Qatar", "Germany"], "answer": "Russia"}
         ]
-        self.quiz_index = 0  # Initialize quiz index
-        self.quiz_score = 0  # Initialize quiz score
+        self.quiz_index = 0
+        self.quiz_score = 0
 
-        self.display_quiz_question()  # Display the first question
+        self.display_quiz_question()
 
     def display_quiz_question(self):
         for widget in self.main_frame.winfo_children():
-            widget.destroy()  # Clear main frame
+            widget.destroy()
 
-        question_data = self.quiz_questions[self.quiz_index]  # Get current question
+        question_data = self.quiz_questions[self.quiz_index]
         question_label = Label(self.main_frame, text=question_data["question"], bg="black", fg="white", font=("Helvetica", 16))
-        question_label.pack(pady=20)  # Display the question
+        question_label.pack(pady=20)
 
-        self.quiz_var = StringVar(value="")  # Variable for selected answer
+        self.quiz_var = StringVar(value="")
 
-        # Display answer options
         for option in question_data["options"]:
             radio_button = Radiobutton(self.main_frame, text=option, variable=self.quiz_var, value=option, bg="black", fg="white", font=("Helvetica", 14), selectcolor="black")
             radio_button.pack(anchor=W, padx=20, pady=5)
 
         next_button = Button(self.main_frame, text="Next", command=self.check_answer, bg="black", fg="white", font=("Helvetica", 16))
-        next_button.pack(pady=20)  # Button to go to the next question
+        next_button.pack(pady=20)
 
     def check_answer(self):
         if self.quiz_var.get() == self.quiz_questions[self.quiz_index]["answer"]:
-            self.quiz_score += 1  # Increase score if the answer is correct
+            self.quiz_score += 1
 
-        self.quiz_index += 1  # Move to the next question
+        self.quiz_index += 1
         if self.quiz_index < len(self.quiz_questions):
-            self.display_quiz_question()  # Display the next question
+            self.display_quiz_question()
         else:
-            self.display_quiz_result()  # Display the quiz result if all questions are answered
+            self.display_quiz_result()
 
     def display_quiz_result(self):
         for widget in self.main_frame.winfo_children():
-            widget.destroy()  # Clear main frame
+            widget.destroy()
 
-        # Display quiz result
         result_label = Label(self.main_frame, text=f"Quiz Over! Your score: {self.quiz_score}/{len(self.quiz_questions)}", bg="black", fg="white", font=("Helvetica", 16))
         result_label.pack(pady=20)
 
-        # Button to restart the quiz
         restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="red", fg="white", font=("Helvetica", 16))
         restart_button.pack(pady=10)
 
-        # Button to go back to home
         home_button = Button(self.main_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
         home_button.pack(pady=10)
 
