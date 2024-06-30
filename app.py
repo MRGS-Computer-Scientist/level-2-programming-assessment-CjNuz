@@ -1,9 +1,9 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from os import path
-import webbrowser #For the basketball players
+import webbrowser # For the basketball players
 import random # Randomizer for the button in the clicking game
-import time #Timer for the clicking game
+import time # Timer for the clicking game
 
 class App:
     main_app = None  # Main app instance
@@ -48,9 +48,7 @@ class App:
 
         # Text to display beside shooting form image
         self.shooting_text = """When it comes to basketball, it is quite vital that proper shooting techniques are employed. It also aids players in improved accuracy and uniformity of their shots. If you have the right form, there are more baskets because your shots have a better chance of going through. It’s like the starting point of constructing a house, should you lack it, then everything becomes slightly unstable. Common aspects of shooting include factors such as how one grasps the basketball, the positioning of the legs and the manner in which the ball is released. Constant practice of the form makes you improve your shooting ability, which dictates how good a basketball player you will be."""
-
         self.bicycle_kick_text = """In football, the bicycle kick is among the risky but very impressive moves that fans of the game could always look forward to. Robbed of most of its vigorous expressions, it entails a player jumping and assuming an airborne posture with his back to the goal, and then scoring with a bicycle kick. This is done with great elegance – in fact, it needs great timing, balance, and synchronization hence the very few times one sees it on the soccer playing arena. When well done the spectacular move also draws appreciation of the talents of the footballer as they give the football fans memories that are etched in football history due to the beauty allied to their brass heart to try the impossible."""
-
         self.donald_text = """Over the years, many legends have graced the field of cricket but none can MATCH the genius of Sir Donald Bradman whose legacy continues to be felt even in the present era. Bradman – arguably the best batsman of the age, was born on November 27, 1908, in New South Wales, Australia. His career batting average of 99 in Test cricket remains unmatched. Bradman's unparalleled skill and determination set him apart as a player who dominated his era, controlling bowlers with his exceptional technique and focus. Beyond his statistical achievements, Bradman symbolizes the essence of cricketing culture and is revered for his enduring impact on the sport."""
 
         # Display shooting form image and text only if this is the main window
@@ -116,10 +114,8 @@ class App:
         # Create sport buttons
         self.basketball_button = Button(main_frame, image=self.basketball_image, command=self.open_basketball_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
         self.basketball_button.grid(row=0, column=0, padx=10, pady=10)  # Add basketball button to main frame
-
         self.football_button = Button(main_frame, image=self.football_image, command=self.open_football_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
         self.football_button.grid(row=0, column=1, padx=10, pady=10)  # Add football button to main frame
-
         self.cricket_button = Button(main_frame, image=self.cricket_image, command=self.open_cricket_window, highlightthickness=0, bd=0, bg="black", activebackground="black")
         self.cricket_button.grid(row=0, column=2, padx=10, pady=10)  # Add cricket button to main frame
 
@@ -127,10 +123,8 @@ class App:
         # Display shooting form content
         shooting_form_title_label = Label(self.main_frame, text="Shooting Form", bg="black", fg="white", font=("Helvetica", 16))
         shooting_form_title_label.grid(row=1, column=0, columnspan=3, padx=10, pady=0, sticky=W)  # Add title label for shooting form
-
         shooting_form_label = Label(self.main_frame, image=self.shooting_form_image, bg="black")
         shooting_form_label.grid(row=2, column=0, padx=10, pady=10, sticky=N)  # Add image for shooting form
-
         shooting_text_widget = Text(self.main_frame, wrap=WORD, bg="black", fg="white", width=25, height=10, padx=10, pady=10, bd=0, relief=FLAT)
         shooting_text_widget.insert(INSERT, self.shooting_text)  # Add text for shooting form
         shooting_text_widget.tag_configure("justified", justify=LEFT)
@@ -147,17 +141,14 @@ class App:
         bicycle_kick_text_widget.tag_add("justified", "1.0", "end")
         bicycle_kick_text_widget.config(state=DISABLED)  # Make text widget read-only
         bicycle_kick_text_widget.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky=E)
-
         bicycle_kick_label = Label(self.main_frame, image=self.bicycle_kick_image, bg="black")
         bicycle_kick_label.grid(row=4, column=2, padx=10, pady=10, sticky=W)  # Add image for bicycle kick
 
         # Display Donald Bradman content
         donald_title_label = Label(self.main_frame, text="Donald Bradman", bg="black", fg="white", font=("Helvetica", 16))
         donald_title_label.grid(row=5, column=0, columnspan=3, padx=10, pady=0, sticky=W)
-
         donald_label = Label(self.main_frame, image=self.donald_image, bg="black")
         donald_label.grid(row=6, column=0, padx=10, pady=10, sticky=W)  # Add image for Donald Bradman
-
         donald_text_widget = Text(self.main_frame, wrap=WORD, bg="black", fg="white", width=25, height=10, padx=10, pady=10, bd=0, relief=FLAT)
         donald_text_widget.insert(INSERT, self.donald_text)  # Add text for Donald Bradman
         donald_text_widget.tag_configure("justified", justify=LEFT)
@@ -202,7 +193,6 @@ class App:
         if App.main_app:
             App.main_app.root.deiconify()
 
-        #For the basketball players when clicked it will search their name
     def display_basketball_content(self):
         def open_google_search(player_name):
             url = f"https://www.google.com/search?q={player_name.replace(' ', '+')}"
@@ -212,13 +202,17 @@ class App:
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
-        # Basketball rules
-        rules_frame = Frame(self.main_frame, bg="black")# Create a frame for basketball rules
-        rules_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        # Basketball window title
+        basketball_window_title = Label(self.main_frame, text="Basketball Window", bg="black", fg="white", font=("Helvetica", 20))
+        basketball_window_title.pack(pady=5)
 
-        rules_title_label = Label(rules_frame, text="Basketball Rules", bg="black", fg="white", font=("Helvetica", 16))# Title label for rules
-        rules_title_label.pack(anchor=W, pady=(10, 0))#Pack the title label
-        #The actual rules text
+        # Basketball rules
+        rules_frame = Frame(self.main_frame, bg="black")  # Create a frame for basketball rules
+        rules_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        rules_title_label = Label(rules_frame, text="Basketball Rules", bg="black", fg="white", font=("Helvetica", 16))  # Title label for rules
+        rules_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
+
+        # The actual rules text
         rules_text = """1. The game is played with two teams of five players each.\n
 2. The objective is to score by shooting the ball through the opponent's hoop.\n
 3. The game is played in four quarters of 12 minutes each.\n
@@ -227,18 +221,18 @@ class App:
 6. Players cannot run with the ball without dribbling it.\n
 7. Physical contact is generally not allowed, with different levels of fouls and penalties applied for violations.\n
 8. A free throw is awarded after certain fouls and is worth one point each."""
-        #Create a text widget for displaying rules
+        # Create a text widget for displaying rules
         rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        rules_text_widget.insert(INSERT, rules_text) # Insert the rules text
+        rules_text_widget.insert(INSERT, rules_text)  # Insert the rules text
         rules_text_widget.config(state=DISABLED)  # Disable editing
         rules_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
 
         # Famous basketball players
-        players_frame = Frame(self.main_frame, bg="black")# Create a frame for players
-        players_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
+        players_frame = Frame(self.main_frame, bg="black")  # Create a frame for players
+        players_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        players_title_label = Label(players_frame, text="Famous Basketball Players", bg="black", fg="white", font=("Helvetica", 16))  # Title label for players
+        players_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
 
-        players_title_label = Label(players_frame, text="Famous Basketball Players", bg="black", fg="white", font=("Helvetica", 16))# Title label for players
-        players_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
         # List of players and their images
         players = [
             ("LeBron James", self.lebron_james_image),
@@ -250,23 +244,19 @@ class App:
         ]
         # Loop through each player and create a frame for them
         for player, image in players:
-            player_frame = Frame(players_frame, bg="black")# Create a frame for each player
-            player_frame.pack(fill=X, pady=2)# Pack the player frame
-
-            player_image_label = Label(player_frame, image=image, bg="black")# Image label for player
-            player_image_label.pack(side=LEFT, padx=(0, 10))# Pack the image label
-
-            player_label = Label(player_frame, text=player, bg="black", fg="white", font=("Helvetica", 12), cursor="hand2")# Label for player's name
-            player_label.pack(side=LEFT, anchor=W)# Pack the player's name label
-            player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))# Bind click event to open Google search
+            player_frame = Frame(players_frame, bg="black")  # Create a frame for each player
+            player_frame.pack(fill=X, pady=2)  # Pack the player frame
+            player_image_label = Label(player_frame, image=image, bg="black")  # Image label for player
+            player_image_label.pack(side=LEFT, padx=(0, 10))  # Pack the image label
+            player_label = Label(player_frame, text=player, bg="black", fg="white", font=("Helvetica", 12), cursor="hand2")  # Label for player's name
+            player_label.pack(side=LEFT, anchor=W)  # Pack the player's name label
+            player_label.bind("<Button-1>", lambda e, p=player: open_google_search(p))  # Bind click event to open Google search
 
         # Basketball Techniques
-        techniques_frame = Frame(self.main_frame, bg="black")# Create a frame for techniques
-        techniques_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
-
-
-        techniques_title_label = Label(techniques_frame, text="Basketball Techniques", bg="black", fg="white", font=("Helvetica", 16))# Title label for technique
-        techniques_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
+        techniques_frame = Frame(self.main_frame, bg="black")  # Create a frame for techniques
+        techniques_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        techniques_title_label = Label(techniques_frame, text="Basketball Techniques", bg="black", fg="white", font=("Helvetica", 16))  # Title label for technique
+        techniques_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
 
         # The actual techniques text
         techniques_text = """1. Passing: Use crisp chest passes or bounce passes to move the ball efficiently.\n
@@ -274,24 +264,28 @@ class App:
 3. Shooting: Square your body to the hoop, follow through with your shooting hand, and aim for the back of the rim.\n
 4. Rebounding: Box out opponents, anticipate the ball's trajectory, and use both hands to secure the rebound.\n
 5. Defense: Maintain a low stance, stay between your opponent and the basket, and contest shots without fouling."""
+
         # Create a text widget for displaying techniques
         techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        techniques_text_widget.insert(INSERT, techniques_text)# Insert the techniques text
-        techniques_text_widget.config(state=DISABLED)# Disable editing
-        techniques_text_widget.pack(anchor=W, pady=(0, 10))# Pack the text widget
-
+        techniques_text_widget.insert(INSERT, techniques_text)  # Insert the techniques text
+        techniques_text_widget.config(state=DISABLED)  # Disable editing
+        techniques_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
 
     def display_football_content(self):
         # Clear existing content in main_frame
         for widget in self.main_frame.winfo_children():
             widget.destroy() # Destroy each widget in the main frame
 
+        # Football window title
+        Football_window_title = Label(self.main_frame, text="Football Window", bg="black", fg="white", font=("Helvetica", 15))
+        Football_window_title.pack(pady=2)
+
         # Football techniques and form
         techniques_frame = Frame(self.main_frame, bg="black")# Create a frame for football techniques
         techniques_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
-
         techniques_title_label = Label(techniques_frame, text="Football Techniques & Form", bg="black", fg="white", font=("Helvetica", 16))# Title label for techniques
         techniques_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
+
         # List of football techniques and descriptions
         techniques = [
             ("Passing", self.passing_image, "Use the inside of your foot for accuracy."),
@@ -306,25 +300,19 @@ class App:
         for technique, image, description in techniques:
             technique_frame = Frame(techniques_frame, bg="black")# Create a frame for each technique
             technique_frame.pack(fill=X, pady=2, padx=10)# Pack the technique frame
-
             technique_image_label = Label(technique_frame, image=image, bg="black")# Image label for technique
             technique_image_label.pack(side=LEFT, padx=(0, 10))# Pack the image label
-
             text_frame = Frame(technique_frame, bg="black")# Create a frame for text
             text_frame.pack(side=LEFT, fill=X)# Pack the text frame
-
             technique_label = Label(text_frame, text=technique, bg="black", fg="white", font=("Helvetica", 12))# Label for technique name
             technique_label.pack(anchor=W)# Pack the technique name label
-
-
             description_label = Label(text_frame, text=description, bg="black", fg="white", font=("Helvetica", 12), wraplength=300, justify=LEFT)# Label for technique description
             description_label.pack(anchor=W)# Pack the description label
 
         # Football Rules
         rules_frame = Frame(self.main_frame, bg="black")  # Create a frame for football rules
-        rules_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
-
-        rules_title_label = Label(rules_frame, text="Football Rules", bg="black", fg="white", font=("Helvetica", 16))  # Title label for rules
+        rules_frame.pack(fill=X, padx=10, pady=3)  # Pack the frame with padding
+        rules_title_label = Label(rules_frame, text="Football Rules", bg="black", fg="white", font=("Helvetica", 20))  # Title label for rules
         rules_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
 
         # The actual rules text
@@ -343,11 +331,11 @@ class App:
         rules_text_widget = Text(rules_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
         rules_text_widget.insert(INSERT, rules_text)  # Insert the rules text
         rules_text_widget.config(state=DISABLED)  # Disable editing
-        rules_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        rules_text_widget.pack(anchor=W, pady=(0, 5))  # Pack the text widget
 
         # Add quiz button
         quiz_button = Button(self.main_frame, text="Take Football Quiz", command=self.start_quiz, bg="black", fg="white", font=("Helvetica", 16))  # Button for starting quiz
-        quiz_button.pack(pady=20)  # Pack the quiz button
+        quiz_button.pack(pady=10)  # Pack the quiz button
 
 
     def display_cricket_content(self):
@@ -355,12 +343,16 @@ class App:
         for widget in self.main_frame.winfo_children():
             widget.destroy() # Destroy each widget in the main frame
 
+        # Cricket window title
+        Cricket_window_title = Label(self.main_frame, text="Cricket Window", bg="black", fg="white", font=("Helvetica", 20))
+        Cricket_window_title.pack(pady=5)
+
         # Cricket rules
         rules_frame = Frame(self.main_frame, bg="black")# Create a frame for cricket rules
         rules_frame.pack(fill=X, padx=10, pady=5)# Pack the frame with padding
-
         rules_title_label = Label(rules_frame, text="Cricket Rules", bg="black", fg="white", font=("Helvetica", 16))# Title label for rules
         rules_title_label.pack(anchor=W, pady=(10, 0))# Pack the title label
+
         # The actual rules text
         rules_text = """1. Cricket is played between two teams of eleven players each.\n
 2. The game is played on a circular or oval-shaped field with a 22-yard pitch in the center.\n
@@ -382,12 +374,10 @@ class App:
         # Cricket techniques
         techniques_frame = Frame(self.main_frame, bg="black")  # Create a frame for cricket techniques
         techniques_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
-
         techniques_title_label = Label(techniques_frame, text="Cricket Techniques", bg="black", fg="white", font=("Helvetica", 16))  # Title label for techniques
         techniques_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
 
         # The actual techniques text
-
         techniques_text = """1. Batting: Stand sideways, keep your eyes on the ball, and use a straight bat.\n
 2. Bowling: Keep your arm straight, follow through, and aim for the stumps.\n
 3. Fielding: Stay low, keep your eyes on the ball, and use two hands to catch.\n
@@ -406,10 +396,8 @@ class App:
         # Clicking game
         game_frame = Frame(self.main_frame, bg="black")  # Create a frame for the clicking game
         game_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
-
         game_title_label = Label(game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))  # Title label for the game
         game_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
-
         start_button = Button(game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))  # Button to start the game
         start_button.pack(pady=20)  # Pack the start button
 
@@ -418,7 +406,6 @@ class App:
         self.game_frame = Frame(self.main_frame, bg="black", width=400, height=400)
         self.game_frame.pack(expand=True, fill=BOTH)
         self.game_frame.pack_propagate(False)
-
         self.score = 0  # Initialize score
         self.time_left = 30  # Initialize time left
 
@@ -481,7 +468,6 @@ class App:
         ]
         self.quiz_index = 0  # Initialize quiz index
         self.quiz_score = 0  # Initialize quiz score
-
         self.display_quiz_question()  # Display the first question
 
     def display_quiz_question(self):
@@ -491,7 +477,7 @@ class App:
         question_data = self.quiz_questions[self.quiz_index]  # Get current question
         question_label = Label(self.main_frame, text=question_data["question"], bg="black", fg="white", font=("Helvetica", 16))
         question_label.pack(pady=20)  # Display the question
-
+        
         self.quiz_var = StringVar(value="")  # Variable for selected answer
 
         # Display answer options
