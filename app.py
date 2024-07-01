@@ -41,6 +41,7 @@ class App:
         self.shooting_form_filename = path.join(self.dirname, 'Images/Shooting-form.png')  # Shooting form image path
         self.bicycle_kick_filename = path.join(self.dirname, 'Images/Bicyclekick.jpg')  # Bicycle kick image path
         self.donald_filename = path.join(self.dirname, 'Images/Donald.png')  # Donald image path
+        self.cricketclick_filename = path.join(self.dirname, 'Images/CricketButton.png')  # Donald image path
 
         # Load images and create buttons
         self.load_images()  # Load all images
@@ -88,6 +89,9 @@ class App:
         self.heading_image = self.resize_image(path.join(self.dirname, 'Images/Heading.png'), size=(50, 50))
         self.tackling_image = self.resize_image(path.join(self.dirname, 'Images/Tackling.png'), size=(50, 50))
         self.ball_control_image = self.resize_image(path.join(self.dirname, 'Images/Ball_Control.png'), size=(50, 50))
+
+        #Image for button clicking game
+        self.cricketclick_image = self.resize_image(self.cricketclick_filename, size=(150, 150))  # Load and resize Cricket image
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
@@ -418,7 +422,7 @@ class App:
         self.time_label.pack()
 
         # Click button
-        self.click_button = Button(self.game_frame, text="🏏", command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
+        self.click_button = Button(self.game_frame,  image=self.cricketclick_image, command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
         self.click_button.pack()
 
         self.update_game()  # Start the game update loop
