@@ -91,7 +91,7 @@ class App:
         self.ball_control_image = self.resize_image(path.join(self.dirname, 'Images/Ball_Control.png'), size=(50, 50))
 
         #Image for button clicking game
-        self.cricketclick_image = self.resize_image(self.cricketclick_filename, size=(150, 150))  # Load and resize Cricket image
+        self.cricketclick_image = self.resize_image(self.cricketclick_filename, size=(50, 50))  # Load and resize Cricket image
 
     def resize_image(self, filepath, size=(100, 100)):
         # Resize image to specified size
@@ -422,7 +422,7 @@ class App:
         self.time_label.pack()
 
         # Click button
-        self.click_button = Button(self.game_frame,  image=self.cricketclick_image, command=self.update_score, bg="blue", fg="white", font=("Helvetica", 16))
+        self.click_button = Button(self.game_frame, image=self.cricketclick_image, command=self.update_score, bg="black", fg="black", font=("Helvetica", 16))
         self.click_button.pack()
 
         self.update_game()  # Start the game update loop
@@ -449,8 +449,16 @@ class App:
         for widget in self.game_frame.winfo_children():
             widget.destroy()  # Clear game frame
 
+        # Determine feedback message based on score
+        if self.score <= 10:
+            feedback = "Slow Poke!!"
+        elif self.score <= 30:
+            feedback = "Meh, Average!"
+        else:
+            feedback = "Excellent"
+
         # Display end game message
-        end_label = Label(self.game_frame, text=f"Game Over! Your score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
+        end_label = Label(self.game_frame, text=f"Game Over! Your score: {self.score}\n{feedback}", bg="black", fg="white", font=("Helvetica", 16))
         end_label.pack(pady=20)
 
         # Restart button
@@ -507,8 +515,21 @@ class App:
             widget.destroy()  # Clear main frame
 
         # Display quiz result
-        result_label = Label(self.main_frame, text=f"Quiz Over! Your score: {self.quiz_score}/{len(self.quiz_questions)}", bg="black", fg="white", font=("Helvetica", 16))
+        score_text = f"Quiz Over! Your score: {self.quiz_score}/{len(self.quiz_questions)}"
+        result_label = Label(self.main_frame, text=score_text, bg="black", fg="white", font=("Helvetica", 16))
         result_label.pack(pady=20)
+
+        # Display message based on score
+        if self.quiz_score <= 2:
+            message = "Nice Try!"
+        elif self.quiz_score <= 4:
+            message = "Good Job!"
+        else:
+            message = "Excellent!"
+
+        message_label = Label(self.main_frame, text=message, bg="black", fg="white", font=("Helvetica", 14))
+        message_label.pack(pady=10)
+        
 
         # Button to restart the quiz
         restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="red", fg="white", font=("Helvetica", 16))
