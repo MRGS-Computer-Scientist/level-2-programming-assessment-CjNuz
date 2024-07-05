@@ -392,18 +392,18 @@ class App:
 8. Catching: Keep your eyes on the ball, cushion the catch with soft hands, and follow through with your body."""
 
         # Create a text widget for displaying techniques
-        techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
-        techniques_text_widget.insert(INSERT, techniques_text)  # Insert the techniques text
-        techniques_text_widget.config(state=DISABLED)  # Disable editing
-        techniques_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
+        self.techniques_text_widget = Text(techniques_frame, wrap=WORD, bg="black", fg="white", padx=10, pady=10, bd=0, relief=FLAT, font=("Helvetica", 12), height=8)
+        self.techniques_text_widget.insert(INSERT, techniques_text)  # Insert the techniques text
+        self.techniques_text_widget.config(state=DISABLED)  # Disable editing
+        self.techniques_text_widget.pack(anchor=W, pady=(0, 10))  # Pack the text widget
 
         # Clicking game
-        game_frame = Frame(self.main_frame, bg="black")  # Create a frame for the clicking game
-        game_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
-        game_title_label = Label(game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))  # Title label for the game
-        game_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
-        start_button = Button(game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))  # Button to start the game
-        start_button.pack(pady=20)  # Pack the start button
+        self.game_frame = Frame(self.main_frame, bg="black")  # Create a frame for the clicking game
+        self.game_frame.pack(fill=X, padx=10, pady=5)  # Pack the frame with padding
+        self.game_title_label = Label(self.game_frame, text="Clicking Game", bg="black", fg="white", font=("Helvetica", 16))  # Title label for the game
+        self.game_title_label.pack(anchor=W, pady=(10, 0))  # Pack the title label
+        self.start_button = Button(self.game_frame, text="Start Game", command=self.start_clicking_game, bg="black", fg="white", font=("Helvetica", 16))  # Button to start the game
+        self.start_button.pack(pady=20)  # Pack the start button
 
     def start_clicking_game(self):
         # Set up the game frame
@@ -411,7 +411,7 @@ class App:
         self.game_frame.pack(expand=True, fill=BOTH)
         self.game_frame.pack_propagate(False)
         self.score = 0  # Initialize score
-        self.time_left = 30  # Initialize time left
+        self.time_left = 10  # Initialize time left
 
         # Score label
         self.score_label = Label(self.game_frame, text=f"Score: {self.score}", bg="black", fg="white", font=("Helvetica", 16))
@@ -420,6 +420,9 @@ class App:
         # Time left label
         self.time_label = Label(self.game_frame, text=f"Time left: {self.time_left}", bg="black", fg="white", font=("Helvetica", 16))
         self.time_label.pack()
+
+        self.score = 0
+        self.time_left = 10
 
         # Click button
         self.click_button = Button(self.game_frame, image=self.cricketclick_image, command=self.update_score, bg="black", fg="black", font=("Helvetica", 16))
@@ -437,10 +440,12 @@ class App:
             y = random.randint(0, self.game_frame.winfo_height() - self.click_button.winfo_height())
             self.click_button.place(x=x, y=y)
 
+            self.start_button["state"] = "disable"
+
             self.root.after(1000, self.update_game)  # Update every second
         else:
             self.end_game()  # End the game when time runs out
-
+    
     def update_score(self):
         self.score += 1  # Increase score
         self.score_label.config(text=f"Score: {self.score}")  # Update score label
