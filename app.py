@@ -420,14 +420,12 @@ class App:
         # Time left label
         self.time_label = Label(self.game_frame, text=f"Time left: {self.time_left}", bg="black", fg="white", font=("Helvetica", 16))
         self.time_label.pack()
-
         self.score = 0
         self.time_left = 10
 
         # Click button
         self.click_button = Button(self.game_frame, image=self.cricketclick_image, command=self.update_score, bg="black", fg="black", font=("Helvetica", 16))
         self.click_button.pack()
-
         self.update_game()  # Start the game update loop
 
     def update_game(self):
@@ -465,10 +463,6 @@ class App:
         # Display end game message
         end_label = Label(self.game_frame, text=f"Game Over! Your score: {self.score}\n{feedback}", bg="black", fg="white", font=("Helvetica", 16))
         end_label.pack(pady=20)
-
-        # Restart button
-        restart_button = Button(self.game_frame, text="Restart Game", command=self.start_clicking_game, bg="green", fg="white", font=("Helvetica", 16))
-        restart_button.pack(pady=10)
 
         # Home button
         home_button = Button(self.game_frame, text="Back to Home", command=self.return_to_home, bg="green", fg="white", font=("Helvetica", 16))
