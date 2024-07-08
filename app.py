@@ -529,7 +529,6 @@ class App:
         message_label = Label(self.main_frame, text=message, bg="black", fg="white", font=("Helvetica", 14))
         message_label.pack(pady=10)
         
-
         # Button to restart the quiz
         restart_button = Button(self.main_frame, text="Restart Quiz", command=self.start_quiz, bg="red", fg="white", font=("Helvetica", 16))
         restart_button.pack(pady=10)
